@@ -31,9 +31,11 @@ class LoginScreen extends Component{
         </TouchableOpacity>
 
         <Text 
-          style={styles.SignupText}
-          onPress={() => navigation.navigate('Signup')}>
-            Don't have an account? Sign up
+          style={styles.SignupText}>
+            Don't have an account? <Text style={styles.SignupText2}
+              onPress={() => navigation.navigate('Signup')}>
+              Sign up 
+            </Text>
         </Text>
 
         <TouchableOpacity
@@ -87,6 +89,12 @@ const styles = StyleSheet.create({
   SignupText: {
     alignSelf: "center",
     top: 160,
+  },
+  SignupText2: {
+    //alignSelf: "center",
+    //top: 160,
+    fontWeight: "bold",
+    color: "#f08200",
   },
   Skipbutton: {
     backgroundColor: "#f08200",

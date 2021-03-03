@@ -6,8 +6,10 @@ import LoginScreen from './Screens/Login'
 import HomeScreen from './Screens/Home'
 import SignupScreen from './Screens/Signup'
 import ProfileScreen from './Screens/Profile'
-import LocationsScreen from './Screens/Locations'
 import ReviewsScreen from './Screens/Reviews'
+import Location1Screen from './Screens/Location1'
+import Location2Screen from './Screens/Location2'
+import Location3Screen from './Screens/Location3'
 
 const Stack = createStackNavigator();
 
@@ -27,8 +29,12 @@ class App extends Component{
             name="Signup" component={SignupScreen}
             options={{header: () => null}} />
           <Stack.Screen name="Profile" component={ProfileScreen} />
-          <Stack.Screen name="Locations" component={LocationsScreen} />
           <Stack.Screen name="Reviews" component={ReviewsScreen} />
+          <Stack.Screen name="Location1" component={Location1Screen} />
+          <Stack.Screen name="Location2" component={Location2Screen} />
+          <Stack.Screen name="Location3" component={Location3Screen} />
+
+
 
         </Stack.Navigator>
 

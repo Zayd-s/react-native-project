@@ -1,14 +1,14 @@
-/*import React, {Component} from 'react'
+import React, {Component} from 'react'
 import {View, Text} from 'react-native'
 
-class LocationsScreen extends Component{
+class Location3Screen extends Component{
   render(){
     return(
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text >
-            LocationsScreen
+            Location3
         </Text>
     </View>)
   }
 }
-export default LocationsScreen;*/
+export default Location3Screen;
