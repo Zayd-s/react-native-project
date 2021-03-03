@@ -30,9 +30,12 @@ class App extends Component{
             options={{header: () => null}} />
           <Stack.Screen name="Profile" component={ProfileScreen} />
           <Stack.Screen name="Reviews" component={ReviewsScreen} />
-          <Stack.Screen name="Location1" component={Location1Screen} />
-          <Stack.Screen name="Location2" component={Location2Screen} />
-          <Stack.Screen name="Location3" component={Location3Screen} />
+          <Stack.Screen name="Location1" component={Location1Screen} 
+          options={{title: 'Patisserie Julie'}}/>
+          <Stack.Screen name="Location2" component={Location2Screen} 
+          options={{title: 'Café Crafts'}}/>
+          <Stack.Screen name="Location3" component={Location3Screen} 
+          options={{title: 'Hot Cups'}}/>
 
 
 
