@@ -87,8 +87,6 @@ class HomeScreen extends Component{
       </ScrollView>
     </SafeAreaView>
 
-
-
     </SafeAreaView>
 
     )

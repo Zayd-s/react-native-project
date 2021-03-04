@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import LoginScreen from './Screens/Login'
 import HomeScreen from './Screens/Home'
@@ -12,11 +14,25 @@ import Location2Screen from './Screens/Location2'
 import Location3Screen from './Screens/Location3'
 
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
+function myTabs(){
+  return(
+    <Tab.Navigator>
+      
+      <Tab.Screen name="Home" component ={HomeScreen} />
+      <Tab.Screen name="Reviews" component={ReviewsScreen} />
+      <Tab.Screen name="Profile" component ={ProfileScreen} />
+
+    </Tab.Navigator>
+  );
+}
 
 class App extends Component{
   render(){
     return(
+
       <NavigationContainer>
 
         <Stack.Navigator /*initialRouteName="Get started!"*/ screenOptions={{headerTitleAlign: 'center' /*, title: 'Overview'*/ }}>
@@ -24,7 +40,7 @@ class App extends Component{
             name="Login" component={LoginScreen} 
             options={{header: () => null}}
             /*options={{ title: 'Overview' }} */ />
-          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Home" component={HomeScreen} component={myTabs} />
           <Stack.Screen 
             name="Signup" component={SignupScreen}
             options={{header: () => null}} />
@@ -37,16 +53,29 @@ class App extends Component{
           <Stack.Screen name="Location3" component={Location3Screen} 
           options={{title: 'Hot Cups'}}/>
 
-
-
         </Stack.Navigator>
 
-      </NavigationContainer>)
+      </NavigationContainer>
+
+      );
   }
 }
 
 export default App;
 
+
+
+/*
+class App extends Component{
+  render(){
+    return(
+      <NavigationContainer>
+
+      </NavigationContainer>
+    );
+  }
+}
+*/
 
 /*
 import * as React from 'react';
