@@ -1,31 +1,29 @@
-import React, {Component} from 'react'
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createDrawerNavigator, } from '@react-navigation/drawer';
+import React, {Component} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 //import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import LoginScreen from './Screens/Login'
-import HomeScreen from './Screens/Home'
-import SignupScreen from './Screens/Signup'
-import ProfileScreen from './Screens/Profile'
-import ReviewsScreen from './Screens/Reviews'
-import Location1Screen from './Screens/Location1'
-import Location2Screen from './Screens/Location2'
-import Location3Screen from './Screens/Location3'
+import LoginScreen from './Screens/Login';
+import HomeScreen from './Screens/Home';
+import SignupScreen from './Screens/Signup';
+import ProfileScreen from './Screens/Profile';
+import ReviewsScreen from './Screens/Reviews';
+import Location1Screen from './Screens/Location1';
+import Location2Screen from './Screens/Location2';
+import Location3Screen from './Screens/Location3';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 //const Drawer = createDrawerNavigator();
 
-function myTabs(){
-  return(
+function myTabs() {
+  return (
     <Tab.Navigator>
-      
-      <Tab.Screen name="Home" component ={HomeScreen} />
+      <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Reviews" component={ReviewsScreen} />
-      <Tab.Screen name="Profile" component ={ProfileScreen} />
-
+      <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
 }
@@ -42,41 +40,50 @@ function myDrawer(){
 }
 */
 
-class App extends Component{
-  render(){
-    return(
-
+class App extends Component {
+  render() {
+    return (
       <NavigationContainer>
-
-        <Stack.Navigator /*initialRouteName="Get started!"*/ screenOptions={{headerTitleAlign: 'center' /*, title: 'Overview'*/ }}>
-          <Stack.Screen 
-            name="Login" component={LoginScreen} 
+        <Stack.Navigator
+          /*initialRouteName="Get started!"*/ screenOptions={{
+            headerTitleAlign: 'center' /*, title: 'Overview'*/,
+          }}>
+          <Stack.Screen
+            name="Login"
+            component={LoginScreen}
             options={{header: () => null}}
-            /*options={{ title: 'Overview' }} */ />
-          <Stack.Screen name="Home" component={HomeScreen} component={myTabs}/>
-          <Stack.Screen 
-            name="Signup" component={SignupScreen}
-            options={{header: () => null}} />
-          <Stack.Screen name="Profile" component={ProfileScreen}/>
+            /*options={{ title: 'Overview' }} */
+          />
+          <Stack.Screen name="Home" component={HomeScreen} component={myTabs} />
+          <Stack.Screen
+            name="Signup"
+            component={SignupScreen}
+            options={{header: () => null}}
+          />
+          <Stack.Screen name="Profile" component={ProfileScreen} />
           <Stack.Screen name="Reviews" component={ReviewsScreen} />
-          <Stack.Screen name="Location1" component={Location1Screen} 
-          options={{title: 'Best Brews'}}/>
-          <Stack.Screen name="Location2" component={Location2Screen} 
-          options={{title: 'Latte Love'}}/>
-          <Stack.Screen name="Location3" component={Location3Screen} 
-          options={{title: 'Yomo Café'}}/>
-
+          <Stack.Screen
+            name="Location1"
+            component={Location1Screen}
+            options={{title: 'Best Brews'}}
+          />
+          <Stack.Screen
+            name="Location2"
+            component={Location2Screen}
+            options={{title: 'Latte Love'}}
+          />
+          <Stack.Screen
+            name="Location3"
+            component={Location3Screen}
+            options={{title: 'Yomo Café'}}
+          />
         </Stack.Navigator>
-
       </NavigationContainer>
-
-      );
+    );
   }
 }
 
 export default App;
-
-
 
 /*
 class App extends Component{
@@ -137,8 +144,6 @@ export default () => (
     </AuthStack.Navigator>
   </NavigationContainer>
 )*/
-
-
 
 /*import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
