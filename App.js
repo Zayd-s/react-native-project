@@ -13,6 +13,7 @@ import ReviewsScreen from './Screens/Reviews';
 import Location1Screen from './Screens/Location1';
 import Location2Screen from './Screens/Location2';
 import Location3Screen from './Screens/Location3';
+import EditProfileScreen from './Screens/EditProfile';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -76,6 +77,11 @@ class App extends Component {
             name="Location3"
             component={Location3Screen}
             options={{title: 'Yomo Café'}}
+          />
+          <Stack.Screen
+            name="EditProfile"
+            component={EditProfileScreen}
+            options={{title: 'Edit Profile'}}
           />
         </Stack.Navigator>
       </NavigationContainer>

@@ -27,7 +27,9 @@ export default class Profile extends Component {
             <Text style={styles.Name}>Ben Sterling</Text>
             <Text style={styles.Email}>BenSterling@gmail.com</Text>
 
-            <TouchableOpacity style={styles.EditProfileButton}>
+            <TouchableOpacity
+              style={styles.EditProfileButton}
+              onPress={() => navigation.navigate('EditProfile')}>
               <Text style={styles.TextEditProfile}>Edit Profile</Text>
             </TouchableOpacity>
 
