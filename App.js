@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator, } from '@react-navigation/drawer';
+//import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import LoginScreen from './Screens/Login'
 import HomeScreen from './Screens/Home'
@@ -15,7 +16,7 @@ import Location3Screen from './Screens/Location3'
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-const Drawer = createDrawerNavigator();
+//const Drawer = createDrawerNavigator();
 
 function myTabs(){
   return(
@@ -29,6 +30,18 @@ function myTabs(){
   );
 }
 
+/*
+function myDrawer(){
+  return(
+    <Drawer.Navigator>
+      <Drawer.Screen name="Profile" component={ProfileScreen}/>
+      <Drawer.Screen name="Home" component={HomeScreen}/>
+
+    </Drawer.Navigator>
+  );
+}
+*/
+
 class App extends Component{
   render(){
     return(
@@ -40,18 +53,18 @@ class App extends Component{
             name="Login" component={LoginScreen} 
             options={{header: () => null}}
             /*options={{ title: 'Overview' }} */ />
-          <Stack.Screen name="Home" component={HomeScreen} component={myTabs} />
+          <Stack.Screen name="Home" component={HomeScreen} component={myTabs}/>
           <Stack.Screen 
             name="Signup" component={SignupScreen}
             options={{header: () => null}} />
-          <Stack.Screen name="Profile" component={ProfileScreen} />
+          <Stack.Screen name="Profile" component={ProfileScreen}/>
           <Stack.Screen name="Reviews" component={ReviewsScreen} />
           <Stack.Screen name="Location1" component={Location1Screen} 
-          options={{title: 'Patisserie Julie'}}/>
+          options={{title: 'Best Brews'}}/>
           <Stack.Screen name="Location2" component={Location2Screen} 
-          options={{title: 'Café Crafts'}}/>
+          options={{title: 'Latte Love'}}/>
           <Stack.Screen name="Location3" component={Location3Screen} 
-          options={{title: 'Hot Cups'}}/>
+          options={{title: 'Yomo Café'}}/>
 
         </Stack.Navigator>
 

@@ -1,26 +1,28 @@
 import React, {Component} from 'react'
-import {StyleSheet, View, Text, Button, TouchableOpacity} from 'react-native'
+import {StyleSheet, View, Text, Button, TouchableOpacity, TextInput, Image, SafeAreaView} from 'react-native'
 
 
 class LoginScreen extends Component{
   render(){
     const navigation = this.props.navigation;
     return(
-    <View style={ styles.container }>
+    <SafeAreaView style={ styles.container }>
+      <View style={{height: 100,}}>
+        <Image style={styles.CoffeePic}
+          resizeMode="cover"
+          source={{uri: 'https://www.pngkey.com/png/full/22-225874_coffee-logo-png-vector-cafe.png'}}
+        />
+      </View>
 
-        <TouchableOpacity
-          style={styles.EmailBox}>
-          <Text>
-            Email:
-          </Text>
-        </TouchableOpacity>
+        <TextInput
+          style={styles.EmailBox}
+          placeholder="Email">
+        </TextInput>
 
-        <TouchableOpacity
-          style={styles.PasswordBox}>
-          <Text>
-            Password:
-          </Text>
-        </TouchableOpacity>
+        <TextInput
+          style={styles.PasswordBox}
+          placeholder="Password">
+        </TextInput>
 
         <TouchableOpacity
           style={styles.LoginBox}>
@@ -47,7 +49,7 @@ class LoginScreen extends Component{
         </TouchableOpacity>
           
         
-    </View>)
+    </SafeAreaView>)
   }
 }
 
@@ -56,18 +58,25 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     //alignItems: "center",
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
+    top: -50,
+  },
+  CoffeePic: {
+    width: 150,
+    height: 160,
+    bottom: 80,
+    alignSelf: "center",
   },
   EmailBox: {
     backgroundColor: "#dfdfdf",
-    padding: 10,
+    padding: 5,
     alignSelf: "center",
     width : "75%",
     borderRadius: 10,
   },
   PasswordBox: {
     backgroundColor: "#dfdfdf",
-    padding: 10,
+    padding: 5,
     alignSelf: "center",
     width: "75%",
     borderRadius: 10,
@@ -88,7 +97,7 @@ const styles = StyleSheet.create({
   },
   SignupText: {
     alignSelf: "center",
-    top: 160,
+    top: 100,
   },
   SignupText2: {
     //alignSelf: "center",
@@ -103,11 +112,9 @@ const styles = StyleSheet.create({
     width : "45%",
     borderRadius: 20,
     paddingVertical: 4,
-    //padding: 10
     alignSelf: "center",
     alignItems: "center",
-    elevation: 8,
-    top: 200
+    top: 150
   },
   SkipText: {
     fontSize: 16,

@@ -6,7 +6,7 @@ class HomeScreen extends Component{
     const navigation = this.props.navigation;
 
     return(
-    
+
     <SafeAreaView style={styles.container}>
 
     <SafeAreaView style={ styles.HorizontalScroll}>
@@ -18,31 +18,31 @@ class HomeScreen extends Component{
         <TouchableOpacity
           onPress={() => navigation.navigate('Location1')}>
           <Text style={{alignSelf: "center"}}>
-          Paterissie Julie
+          Best Brews
           </Text>
-          <Image style={ styles.Shop1 }
+          <Image style={ styles.Café1 }
             resizeMode="cover"
-            source={{ uri: 'https://static.dezeen.com/uploads/2017/08/daodaocoffee-HAD-architects-and-EPOS-interiors_dezeen_hero-3.jpg'}}/>
+            source={{ uri: 'https://i2-prod.manchestereveningnews.co.uk/business/property/article5908481.ece/ALTERNATES/s615b/MooseCoffeeFinal.jpg'}}/>
         </TouchableOpacity>
 
         <TouchableOpacity
           onPress={() => navigation.navigate('Location2')}>
           <Text style={{alignSelf: "center"}}>
-          Café Crafts
+          Latte Love
           </Text>
-          <Image style={ styles.Shop2 }
+          <Image style={ styles.Café2 }
             resizeMode="cover"
-            source={{ uri: 'https://www.comunicaffe.com/wp-content/uploads/2018/11/Starbucks-New-York.jpg'}}/>
+            source={{ uri: 'https://www.eclectictrends.com/wp-content/uploads/2020/01/Unmanned-coffee-shop-gacha-gacha-nendo_eclectic-trends-4.jpg'}}/>
         </TouchableOpacity>
 
         <TouchableOpacity
           onPress={() => navigation.navigate('Location3')}>
           <Text style={{alignSelf: "center"}}>
-          Hot Cups
+          Yomo Café
           </Text>
-          <Image style={ styles.Shop3 }
+          <Image style={ styles.Café3 }
             resizeMode="cover"
-            source={{ uri: 'https://cdn.shopify.com/s/files/1/2271/1033/files/105598293_4583241001701599_9188415003459821105_o.jpg?v=1598446566'}}/>
+            source={{ uri: 'https://notjessfashion.com/wp-content/uploads/2018/05/la-mercerie-cafe-nyc-900x600.jpg'}}/>
         </TouchableOpacity>
 
       </ScrollView>
@@ -57,31 +57,31 @@ class HomeScreen extends Component{
         <TouchableOpacity
           onPress={() => navigation.navigate('Location2')}>
           <Text style={{alignSelf: "center"}}>
-          Café Crafts
+          Latte Love
           </Text>
-          <Image style={ styles.Shop2 }
+          <Image style={ styles.Café2 }
             resizeMode="cover"
-            source={{ uri: 'https://www.comunicaffe.com/wp-content/uploads/2018/11/Starbucks-New-York.jpg'}}/>
+            source={{ uri: 'https://www.eclectictrends.com/wp-content/uploads/2020/01/Unmanned-coffee-shop-gacha-gacha-nendo_eclectic-trends-4.jpg'}}/>
         </TouchableOpacity>
 
         <TouchableOpacity
           onPress={() => navigation.navigate('Location1')}>
           <Text style={{alignSelf: "center"}}>
-          Paterissie Julie
+          Best Brews
           </Text>
-          <Image style={ styles.Shop1 }
+          <Image style={ styles.Café1 }
             resizeMode="cover"
-            source={{ uri: 'https://static.dezeen.com/uploads/2017/08/daodaocoffee-HAD-architects-and-EPOS-interiors_dezeen_hero-3.jpg'}}/>
+            source={{ uri: 'https://i2-prod.manchestereveningnews.co.uk/business/property/article5908481.ece/ALTERNATES/s615b/MooseCoffeeFinal.jpg'}}/>
         </TouchableOpacity>
 
         <TouchableOpacity
           onPress={() => navigation.navigate('Location3')}>
           <Text style={{alignSelf: "center"}}>
-          Hot Cups
+          Yomo Café
           </Text>
-          <Image style={ styles.Shop3 }
+          <Image style={ styles.Café3 }
             resizeMode="cover"
-            source={{ uri: 'https://cdn.shopify.com/s/files/1/2271/1033/files/105598293_4583241001701599_9188415003459821105_o.jpg?v=1598446566'}}/>
+            source={{ uri: 'https://notjessfashion.com/wp-content/uploads/2018/05/la-mercerie-cafe-nyc-900x600.jpg'}}/>
         </TouchableOpacity>
 
       </ScrollView>
@@ -109,21 +109,22 @@ const styles = StyleSheet.create({
   },
   HorizontalScroll:{
     marginTop: 40,
-    flex: 0.4,
+    marginBottom: -30,
+    flex: 0.5,
   },
-  Shop1: {
+  Café1: {
     width: 150,
     height: 150,
     borderRadius: 15,
     margin: 10,
   },
-  Shop2: {
+  Café2: {
     width: 150,
     height: 150,
     borderRadius: 15,
     margin: 10,
   },
-  Shop3: {
+  Café3: {
     width: 150,
     height: 150,
     borderRadius: 15,
