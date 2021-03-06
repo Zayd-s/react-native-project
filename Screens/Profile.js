@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  SafeAreaView,
+} from 'react-native';
 
 export default class Profile extends Component {
   render() {
@@ -15,18 +22,18 @@ export default class Profile extends Component {
               'https://t3.ftcdn.net/jpg/00/64/67/80/360_F_64678017_zUpiZFjj04cnLri7oADnyMH0XBYyQghG.jpg',
           }}
         />
-        <View style={styles.Body}>
-          <View style={styles.BodyText}>
-            <Text style={styles.Name}>John Smith</Text>
-            <Text style={styles.Email}>johnsmith@gmail.com</Text>
+        <View style={styles.Profile}>
+          <View style={styles.ProfileText}>
+            <Text style={styles.Name}>Ben Sterling</Text>
+            <Text style={styles.Email}>BenSterling@gmail.com</Text>
 
-            <TouchableOpacity style={styles.ButtonEditProfile}>
+            <TouchableOpacity style={styles.EditProfileButton}>
               <Text style={styles.TextEditProfile}>Edit Profile</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               onPress={() => navigation.navigate('Login')}
-              style={styles.ButtonLogout}>
+              style={styles.LogoutButton}>
               <Text>Logout</Text>
             </TouchableOpacity>
           </View>
@@ -52,10 +59,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     marginTop: 55,
   },
-  Body: {
+  Profile: {
     marginTop: 60,
   },
-  BodyText: {
+  ProfileText: {
     flex: 1,
     alignItems: 'center',
     padding: 30,
@@ -74,7 +81,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
-  ButtonEditProfile: {
+  EditProfileButton: {
     marginTop: 20,
     height: 40,
     flexDirection: 'row',
@@ -85,7 +92,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#f08200',
   },
-  ButtonLogout: {
+  LogoutButton: {
     marginTop: 5,
     height: 40,
     flexDirection: 'row',
