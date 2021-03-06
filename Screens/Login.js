@@ -14,6 +14,13 @@ class LoginScreen extends Component{
         />
       </View>
 
+        <Text style={styles.WelcomeTo}>
+          Welcome to
+        </Text>
+        <Text style={styles.WelcomeToCoffida}>
+          CoffiDa
+        </Text>
+
         <TextInput
           style={styles.EmailBox}
           placeholder="Email">
@@ -66,6 +73,18 @@ const styles = StyleSheet.create({
     height: 160,
     bottom: 80,
     alignSelf: "center",
+  },
+  WelcomeTo: {
+    fontSize: 24,
+    fontWeight: "bold",
+    alignSelf: "center",
+    top: -10,
+  },
+   WelcomeToCoffida: {
+    fontSize: 30,
+    fontWeight: "bold",
+    alignSelf: "center",
+    top: -15,
   },
   EmailBox: {
     backgroundColor: "#dfdfdf",
