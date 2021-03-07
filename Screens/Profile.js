@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   StyleSheet,
   Text,
@@ -6,9 +7,35 @@ import {
   Image,
   TouchableOpacity,
   SafeAreaView,
+  Alert,
 } from 'react-native';
 
 export default class Profile extends Component {
+  postLogout = async () => {
+    let token = await AsyncStorage.getItem('@token');
+    return fetch('http://10.0.2.2:3333/api/1.0.0/user/logout', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'X-Authorization': token},
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          Alert.alert('Successfully logged out');
+          this.props.navigation.navigate('Login');
+        } else if (response.status === 401) {
+          console.error('Unauthorised');
+        } else if (response.status === 500) {
+          console.error('Server error');
+        } else {
+          console.error('Error');
+        }
+      })
+
+      .catch((error) => {
+        //Alert.alert('Could not log in');
+        console.error(error);
+      });
+  };
+
   render() {
     const navigation = this.props.navigation;
 
@@ -34,7 +61,7 @@ export default class Profile extends Component {
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => navigation.navigate('Login')}
+              onPress={() => this.postLogout()}
               style={styles.LogoutButton}>
               <Text>Logout</Text>
             </TouchableOpacity>
