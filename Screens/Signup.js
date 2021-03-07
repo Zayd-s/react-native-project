@@ -80,6 +80,7 @@ class SignupScreen extends Component {
           onChangeText={(password) => this.setState({password})}
           value={this.state.password}
           style={styles.PasswordBox}
+          secureTextEntry
           placeholder="Password"></TextInput>
 
         <TouchableOpacity

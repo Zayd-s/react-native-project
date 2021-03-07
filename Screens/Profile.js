@@ -11,6 +11,77 @@ import {
 } from 'react-native';
 
 export default class Profile extends Component {
+  /*
+  componentDidMount() {
+    this.unsubscribe = this.props.navigation.addListener('focus', () => {
+      this.checkLoggedIn();
+    });
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  checkLoggedIn = async () => {
+    const value = await AsyncStorage.getItem('@token');
+    if (value == null) {
+      this.props.navigation.navigate('Login');
+    }
+  };
+*/
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      first_name: '',
+      last_name: '',
+      email: '',
+      //password: '',
+    };
+  }
+
+  //200, 401, 404, 500
+
+  getInfo = async () => {
+    let token = await AsyncStorage.getItem('@token');
+    let user_id = await AsyncStorage.getItem('@userID');
+    return fetch('http://10.0.2.2:3333/api/1.0.0/user/' + user_id, {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json', 'X-Authorization': token},
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          //Alert.alert(this.state.first_name);
+          return response.json();
+        } else if (response.status === 401) {
+          console.error('Could not ');
+        } else if (response.status === 404) {
+          console.error('Not found');
+        } else if (response.status === 500) {
+          console.error('Server error');
+        } else {
+          console.error('Error');
+        }
+      })
+
+      .then((responseJson) => {
+        this.setState({
+          first_name: responseJson.first_name,
+          last_name: responseJson.last_name,
+          email: responseJson.email,
+        });
+      })
+
+      .catch((error) => {
+        Alert.alert('Error');
+        console.error(error);
+      });
+  };
+
+  componentDidMount() {
+    this.getInfo();
+  }
+
   postLogout = async () => {
     let token = await AsyncStorage.getItem('@token');
     return fetch('http://10.0.2.2:3333/api/1.0.0/user/logout', {
@@ -51,8 +122,10 @@ export default class Profile extends Component {
         />
         <View style={styles.Profile}>
           <View style={styles.ProfileText}>
-            <Text style={styles.Name}>Ben Sterling</Text>
-            <Text style={styles.Email}>BenSterling@gmail.com</Text>
+            <Text style={styles.Name}>
+              {this.state.first_name} {this.state.last_name}
+            </Text>
+            <Text style={styles.Email}>{this.state.email}</Text>
 
             <TouchableOpacity
               style={styles.EditProfileButton}

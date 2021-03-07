@@ -25,6 +25,7 @@ class SignupScreen extends Component {
         <TextInput style={styles.EmailBox} placeholder="Email"></TextInput>
         <TextInput
           style={styles.PasswordBox}
+          secureTextEntry
           placeholder="Password"></TextInput>
         <TouchableOpacity style={styles.SignupBox}>
           <Text style={styles.SignupText}>Save Changes</Text>

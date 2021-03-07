@@ -44,6 +44,7 @@ class LoginScreen extends Component {
       })
       .then(async (responseJson) => {
         await AsyncStorage.setItem('@token', responseJson.token);
+        await AsyncStorage.setItem('@userID', responseJson.id.toString());
         this.props.navigation.navigate('Home');
       })
       .catch((error) => {
@@ -80,6 +81,7 @@ class LoginScreen extends Component {
           onChangeText={(password) => this.setState({password})}
           value={this.state.password}
           style={styles.PasswordBox}
+          secureTextEntry
           placeholder="Password"></TextInput>
 
         <TouchableOpacity
