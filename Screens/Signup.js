@@ -6,9 +6,49 @@ import {
   SafeAreaView,
   TouchableOpacity,
   TextInput,
+  Alert,
 } from 'react-native';
 
 class SignupScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      first_name: '',
+      last_name: '',
+      email: '',
+      password: '',
+    };
+  }
+
+  postUser() {
+    return fetch('http://10.0.2.2:3333/api/1.0.0/user', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        first_name: this.state.first_name,
+        last_name: this.state.last_name,
+        email: this.state.email,
+        password: this.state.password,
+      }),
+    })
+      .then((response) => {
+        if (response.status === 201) {
+          Alert.alert('Successfully registered!');
+          this.props.navigation.navigate('Login');
+        } else if (response.status === 400) {
+          console.error('Could not sign up');
+        } else if (response.status === 500) {
+          console.error('Could not sign up');
+        } else {
+          console.error('Could not sign up');
+        }
+      })
+      .catch((error) => {
+        Alert.alert('Could not sign up');
+        console.error(error);
+      });
+  }
+
   render() {
     const navigation = this.props.navigation;
     return (
@@ -18,19 +58,33 @@ class SignupScreen extends Component {
           <Text style={styles.COFFIDA}>COFFIDA </Text>
         </View>
 
-        <TextInput style={styles.NameBox} placeholder="First Name"></TextInput>
+        <TextInput
+          onChangeText={(first_name) => this.setState({first_name})}
+          value={this.state.first_name}
+          style={styles.NameBox}
+          placeholder="First Name"></TextInput>
 
         <TextInput
+          onChangeText={(last_name) => this.setState({last_name})}
+          value={this.state.last_name}
           style={styles.LastNameBox}
           placeholder="Last Name"></TextInput>
 
-        <TextInput style={styles.EmailBox} placeholder="Email"></TextInput>
+        <TextInput
+          onChangeText={(email) => this.setState({email})}
+          value={this.state.email}
+          style={styles.EmailBox}
+          placeholder="Email"></TextInput>
 
         <TextInput
+          onChangeText={(password) => this.setState({password})}
+          value={this.state.password}
           style={styles.PasswordBox}
           placeholder="Password"></TextInput>
 
-        <TouchableOpacity style={styles.SignupBox}>
+        <TouchableOpacity
+          onPress={() => this.postUser()}
+          style={styles.SignupBox}>
           <Text style={styles.SignupText}>Sign up</Text>
         </TouchableOpacity>
 
