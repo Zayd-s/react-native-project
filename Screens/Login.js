@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   StyleSheet,
   View,
@@ -8,9 +9,49 @@ import {
   TextInput,
   Image,
   SafeAreaView,
+  Alert,
 } from 'react-native';
 
 class LoginScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+    };
+  }
+
+  postLogin = async () => {
+    return fetch('http://10.0.2.2:3333/api/1.0.0/user/login', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.password,
+      }),
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          Alert.alert('Successfully logged in');
+          return response.json();
+        } else if (response.status === 400) {
+          console.error('Invalid email or password');
+        } else if (response.status === 500) {
+          console.error('Server error');
+        } else {
+          console.error('Error');
+        }
+      })
+      .then(async (responseJson) => {
+        await AsyncStorage.setItem('@token', responseJson.token);
+        this.props.navigation.navigate('Home');
+      })
+      .catch((error) => {
+        //Alert.alert('Could not log in');
+        console.error(error);
+      });
+  };
+
   render() {
     const navigation = this.props.navigation;
     return (
@@ -29,13 +70,21 @@ class LoginScreen extends Component {
         <Text style={styles.WelcomeTo}>Welcome to</Text>
         <Text style={styles.WelcomeToCoffida}>CoffiDa</Text>
 
-        <TextInput style={styles.EmailBox} placeholder="Email"></TextInput>
+        <TextInput
+          onChangeText={(email) => this.setState({email})}
+          value={this.state.email}
+          style={styles.EmailBox}
+          placeholder="Email"></TextInput>
 
         <TextInput
+          onChangeText={(password) => this.setState({password})}
+          value={this.state.password}
           style={styles.PasswordBox}
           placeholder="Password"></TextInput>
 
-        <TouchableOpacity style={styles.LoginBox}>
+        <TouchableOpacity
+          onPress={() => this.postLogin()}
+          style={styles.LoginBox}>
           <Text style={styles.LoginText}>Login</Text>
         </TouchableOpacity>
 
