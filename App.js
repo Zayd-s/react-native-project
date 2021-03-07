@@ -24,7 +24,11 @@ function myTabs() {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Reviews" component={ReviewsScreen} />
+      <Tab.Screen
+        name="Reviews"
+        component={ReviewsScreen}
+        options={{title: 'Reviews'}}
+      />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
@@ -63,7 +67,11 @@ class App extends Component {
             options={{header: () => null}}
           />
           <Stack.Screen name="Profile" component={ProfileScreen} />
-          <Stack.Screen name="Reviews" component={ReviewsScreen} />
+          <Stack.Screen
+            name="Reviews"
+            component={ReviewsScreen}
+            options={{title: 'Reviews'}}
+          />
           <Stack.Screen
             name="Location1"
             component={Location1Screen}
