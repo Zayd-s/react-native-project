@@ -8,9 +8,53 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  FlatList,
 } from 'react-native';
 
 class HomeScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      Locations: [],
+    };
+  }
+
+  post = async () => {
+    let token = await AsyncStorage.getItem('@token');
+    return (
+      fetch('http://10.0.2.2:3333/api/1.0.0/find', {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json', 'X-Authorization': token},
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            Alert.alert('Successfully logged in');
+            return response.json();
+          } else if (response.status === 400) {
+            console.error('Invalid email or password');
+          } else if (response.status === 500) {
+            console.error('Server error');
+          } else {
+            console.error('Error');
+          }
+        })
+        .then((response) => response.json())
+        .then((responseJson) => {
+          this.setState({
+            Locations: responseJson,
+          });
+        })
+
+        //await AsyncStorage.setItem('@token', responseJson.token);
+        //this.props.navigation.navigate('Home');
+
+        .catch((error) => {
+          //Alert.alert('Could not log in');
+          console.error(error);
+        })
+    );
+  };
+
   render() {
     const navigation = this.props.navigation;
 
@@ -18,6 +62,7 @@ class HomeScreen extends Component {
       <SafeAreaView style={styles.container}>
         <SafeAreaView style={styles.HorizontalScroll}>
           <Text style={styles.Pic1Title}>Top-rated Cafés</Text>
+
           <ScrollView horizontal>
             <TouchableOpacity onPress={() => navigation.navigate('Location1')}>
               <Text style={{alignSelf: 'center'}}>Best Brews</Text>
