@@ -34,11 +34,11 @@ export default class PostView extends Component {
             <Text style={styles.Distance}>2.1 miles from you</Text>
 
             <Text style={styles.Description}>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-              commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-              penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-              Donec quam felis, ultricies nec, pellentesque eu, pretium quis,
-              sem. Nulla consequat massa quis enim. {'\n'}
+              I've tried so many coffee drinks from different cafés but Yomo
+              Café has the best ones ever! I ordered one of their cappuccinos
+              this morning and it was great! Wish they had more variety but
+              honestly anything you get from this café is perfect. Can't believe
+              I haven't tried this place earlier. {'\n'}
             </Text>
 
             <View
@@ -60,10 +60,11 @@ export default class PostView extends Component {
                 style={{width: 80, height: 80, borderRadius: 15}}
               />
               <Text style={styles.TextReview1}>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-                commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-                penatibus et magnis dis parturient montes, nascetur ridiculus
-                mus.
+                I've tried so many coffee drinks from different cafés but Yomo
+                Café has the best ones ever! I ordered one of their cappuccinos
+                this morning and it was great! Wish they had more variety but
+                honestly anything you get from this café is perfect. Can't
+                believe I haven't tried this place earlier.
               </Text>
             </View>
 
