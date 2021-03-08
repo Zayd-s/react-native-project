@@ -36,7 +36,7 @@ export default class Profile extends Component {
       first_name: '',
       last_name: '',
       email: '',
-      //password: '',
+      password: '',
     };
   }
 
@@ -69,6 +69,7 @@ export default class Profile extends Component {
           first_name: responseJson.first_name,
           last_name: responseJson.last_name,
           email: responseJson.email,
+          password: responseJson.password,
         });
       })
 
@@ -129,7 +130,14 @@ export default class Profile extends Component {
 
             <TouchableOpacity
               style={styles.EditProfileButton}
-              onPress={() => navigation.navigate('EditProfile')}>
+              onPress={() =>
+                navigation.navigate('EditProfile', {
+                  first_name: this.state.first_name,
+                  last_name: this.state.last_name,
+                  email: this.state.email,
+                  password: this.state.password,
+                })
+              }>
               <Text style={styles.TextEditProfile}>Edit Profile</Text>
             </TouchableOpacity>
 

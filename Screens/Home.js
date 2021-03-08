@@ -11,23 +11,6 @@ import {
 } from 'react-native';
 
 class HomeScreen extends Component {
-  componentDidMount() {
-    this.unsubscribe = this.props.navigation.addListener('focus', () => {
-      this.checkLoggedIn();
-    });
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-  checkLoggedIn = async () => {
-    const value = await AsyncStorage.getItem('@token');
-    if (value == null) {
-      this.props.navigation.navigate('Login');
-    }
-  };
-
   render() {
     const navigation = this.props.navigation;
 
