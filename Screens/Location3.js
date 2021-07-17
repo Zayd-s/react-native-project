@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Icon from 'react-native-vector-icons/AntDesign';
 import {
   StyleSheet,
   Text,
@@ -27,7 +28,12 @@ export default class PostView extends Component {
           </View>
 
           <View style={styles.Location3Page}>
-            <Text style={styles.CafeName}>Yomo Café</Text>
+            <Text style={styles.CafeName}>
+              Yomo Café
+              <TouchableOpacity style={styles.heartIcon}>
+                <Icon name="heart" size={30} color="grey" />
+              </TouchableOpacity>
+            </Text>
 
             <Text style={styles.TextLocation3}>Manchester, UK</Text>
 
@@ -40,6 +46,12 @@ export default class PostView extends Component {
               honestly anything you get from this café is perfect. Can't believe
               I haven't tried this place earlier. {'\n'}
             </Text>
+
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Reviews')}
+              style={styles.AddReviewButton}>
+              <Text style={styles.TextAddReview}>Add a review</Text>
+            </TouchableOpacity>
 
             <View
               style={{
@@ -67,12 +79,6 @@ export default class PostView extends Component {
                 believe I haven't tried this place earlier.
               </Text>
             </View>
-
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Reviews')}
-              style={styles.AddReviewButton}>
-              <Text style={styles.TextAddReview}>Add a review</Text>
-            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
@@ -110,6 +116,9 @@ const styles = StyleSheet.create({
   CafeName: {
     fontSize: 24,
     fontWeight: 'bold',
+  },
+  heartIcon: {
+    paddingLeft: 125,
   },
   Description: {
     //fontSize:16,
@@ -174,7 +183,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '75%',
     borderRadius: 10,
-    marginTop: 50,
+    marginBottom: 10,
     //marginBottom:10,
     //marginTop:20,
     //flexDirection: 'row',

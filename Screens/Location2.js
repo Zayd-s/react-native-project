@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Icon from 'react-native-vector-icons/AntDesign';
 import {
   StyleSheet,
   Text,
@@ -27,19 +28,26 @@ export default class PostView extends Component {
           </View>
 
           <View style={styles.Location2Page}>
-            <Text style={styles.CafeName}>Latte Love</Text>
+            <Text style={styles.CafeName}>
+              Latte Love
+              <TouchableOpacity style={styles.heartIcon}>
+                <Icon name="heart" size={30} color="grey" />
+              </TouchableOpacity>
+            </Text>
 
             <Text style={styles.TextLocation2}>Birmingham, UK</Text>
 
             <Text style={styles.Distance}>20.4 miles from you</Text>
 
             <Text style={styles.Description}>
-              I've tried so many coffee drinks from different cafés but Latte
-              Love has the best ones ever! I ordered one of their cappuccinos
-              this morning and it was great! Wish they had more variety but
-              honestly anything you get from this café is perfect. Can't believe
-              I haven't tried this place earlier. {'\n'}
+              Come join our fan favourite Café in the heart of the city. {'\n'}
             </Text>
+
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Reviews')}
+              style={styles.AddReviewButton}>
+              <Text style={styles.TextAddReview}>Add a review</Text>
+            </TouchableOpacity>
 
             <View
               style={{
@@ -67,12 +75,6 @@ export default class PostView extends Component {
                 believe I haven't tried this place earlier.
               </Text>
             </View>
-
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Reviews')}
-              style={styles.AddReviewButton}>
-              <Text style={styles.TextAddReview}>Add a review</Text>
-            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
@@ -110,6 +112,9 @@ const styles = StyleSheet.create({
   CafeName: {
     fontSize: 24,
     fontWeight: 'bold',
+  },
+  heartIcon: {
+    paddingLeft: 125,
   },
   Description: {
     //fontSize:16,
@@ -174,7 +179,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '75%',
     borderRadius: 10,
-    marginTop: 50,
+    marginBottom: 10,
     //marginBottom:10,
     //marginTop:20,
     //flexDirection: 'row',
