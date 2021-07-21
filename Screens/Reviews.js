@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   StyleSheet,
   View,
@@ -10,31 +11,33 @@ import {
 } from 'react-native';
 
 class ReviewsScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      location_id: this.props.route.params.location_id,
+    };
+  }
   render() {
     return (
       <ScrollView>
         <SafeAreaView style={styles.container}>
           <View style={styles.Title}>
-            <Text style={styles.CreateAcc}>
+            <Text style={styles.CreateReview}>
               {'\n'}
               {'\n'}Add a Review
             </Text>
           </View>
 
-          <Text style={styles.ReviewText}>Café Name</Text>
+          <Text style={styles.ReviewText}>{this.state.location_id}</Text>
+          <Text style={styles.ReviewText}>Overall rating</Text>
           <TextInput
-            style={styles.CafeNameBox}
-            placeholder="Select location"></TextInput>
+            style={styles.RatingBox}
+            placeholder="Select rating"></TextInput>
 
-          <Text style={styles.ReviewText}>Review Title</Text>
+          <Text style={styles.ReviewText}>Price</Text>
           <TextInput
-            style={styles.ReviewTitleBox}
-            placeholder="Review title"></TextInput>
-
-          <Text style={styles.ReviewText}>Review</Text>
-          <TextInput
-            style={styles.ReviewBox}
-            placeholder="Write your review here"></TextInput>
+            style={styles.RatingBox}
+            placeholder="Select rating"></TextInput>
 
           <Text style={styles.ReviewText}>Quality</Text>
           <TextInput
@@ -46,10 +49,10 @@ class ReviewsScreen extends Component {
             style={styles.RatingBox}
             placeholder="Select rating"></TextInput>
 
-          <Text style={styles.ReviewText}>Cleanliness</Text>
+          <Text style={styles.ReviewText}>Review</Text>
           <TextInput
-            style={styles.RatingBox}
-            placeholder="Select rating"></TextInput>
+            style={styles.ReviewBox}
+            placeholder="Write your review here"></TextInput>
 
           <TouchableOpacity style={styles.SaveChangesBox}>
             <Text style={styles.SaveChangesText}>Save Changes</Text>
@@ -73,7 +76,7 @@ const styles = StyleSheet.create({
     top: -80,
     alignItems: 'center',
   },
-  CreateAcc: {
+  CreateReview: {
     fontSize: 24,
     fontWeight: 'bold',
     alignSelf: 'center',
@@ -83,31 +86,6 @@ const styles = StyleSheet.create({
     marginLeft: 45,
     fontWeight: 'bold',
     top: -25,
-  },
-  CafeNameBox: {
-    backgroundColor: '#dfdfdf',
-    padding: 5,
-    alignSelf: 'center',
-    width: '75%',
-    borderRadius: 10,
-    marginBottom: 20,
-    top: -20,
-    /*
-    backgroundColor: '#dfdfdf',
-    padding: 5,
-    alignSelf: 'center',
-    width: '75%',
-    borderRadius: 10,
-    */
-  },
-  ReviewTitleBox: {
-    backgroundColor: '#dfdfdf',
-    padding: 5,
-    alignSelf: 'center',
-    width: '75%',
-    borderRadius: 10,
-    marginBottom: 20,
-    top: -20,
   },
   ReviewBox: {
     backgroundColor: '#dfdfdf',

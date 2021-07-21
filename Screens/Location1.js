@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {
   StyleSheet,
@@ -8,9 +9,77 @@ import {
   ImageBackground,
   TouchableOpacity,
   ScrollView,
+  TouchableHighlight,
 } from 'react-native';
 
 export default class PostView extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      location_id: this.props.route.params.location_id,
+      location_name: '',
+      location_town: '',
+      latitude: '',
+      longitude: '',
+      photo_path: '1',
+      avg_overall_rating: 1,
+      avg_price_rating: 1,
+      avg_quality_rating: 1,
+      avg_clenliness_rating: 1,
+      location_reviews: [],
+      isFavourite: '',
+    };
+  }
+
+  getLocationDetails = async () => {
+    let token = await AsyncStorage.getItem('@token');
+    return fetch(
+      'http://10.0.2.2:3333/api/1.0.0/location/' + this.state.location_id,
+      {
+        method: 'get',
+        headers: {
+          'x-authorization': token,
+        },
+      },
+    )
+      .then((response) => {
+        if (response.status === 200) {
+          console.log(' in');
+          return response.json();
+        } else {
+          console.log('not in');
+          throw 'Somthing went wrong';
+        }
+      })
+      .then(async (responseJson) => {
+        this.setState({location_name: responseJson.location_name});
+        this.setState({location_town: responseJson.location_town});
+        this.setState({latitude: responseJson.latitude});
+        this.setState({longitude: responseJson.longitude});
+        this.setState({photo_path: responseJson.photo_path});
+        this.setState({avg_overall_rating: responseJson.avg_overall_rating});
+        this.setState({avg_price_rating: responseJson.avg_price_rating});
+        this.setState({avg_quality_rating: responseJson.avg_quality_rating});
+        this.setState({
+          avg_clenliness_rating: responseJson.avg_clenliness_rating,
+        });
+        this.setState({location_reviews: responseJson.location_reviews});
+      })
+      .catch((error) => {
+        console.log(error);
+        ToastAndroid.show(error, ToastAndroid.SHORT);
+      });
+  };
+
+  componentDidMount() {
+    this.unsubscribe = this.props.navigation.addListener('focus', () => {
+      this.getLocationDetails();
+    });
+  }
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
   render() {
     const navigation = this.props.navigation;
 
@@ -20,22 +89,20 @@ export default class PostView extends Component {
           <View style={styles.Header}>
             <ImageBackground
               style={styles.ImageCafe1}
-              source={{
-                uri:
-                  'https://i2-prod.manchestereveningnews.co.uk/business/property/article5908481.ece/ALTERNATES/s615b/MooseCoffeeFinal.jpg',
-              }}
+              source={{uri: this.state.photo_path}}
             />
           </View>
 
           <View style={styles.Location1Page}>
             <Text style={styles.CafeName}>
-              Best Brews
+              {this.state.location_name}
+
               <TouchableOpacity style={styles.heartIcon}>
                 <Icon name="heart" size={30} color="grey" />
               </TouchableOpacity>
             </Text>
 
-            <Text style={styles.TextLocation1}>Manchester, UK</Text>
+            <Text style={styles.TextLocation1}>{this.state.location_town}</Text>
 
             <Text style={styles.Distance}>0.6 miles from you</Text>
 
@@ -45,7 +112,11 @@ export default class PostView extends Component {
             </Text>
 
             <TouchableOpacity
-              onPress={() => navigation.navigate('Reviews')}
+              onPress={() =>
+                navigation.navigate('Reviews', {
+                  location_id: this.state.location_id,
+                })
+              }
               style={styles.AddReviewButton}>
               <Text style={styles.TextAddReview}>Add a review</Text>
             </TouchableOpacity>

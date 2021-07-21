@@ -9,6 +9,7 @@ import {
   ScrollView,
   TouchableOpacity,
   FlatList,
+  TouchableHighlight,
 } from 'react-native';
 
 class HomeScreen extends Component {
@@ -19,53 +20,107 @@ class HomeScreen extends Component {
     };
   }
 
-  post = async () => {
-    let token = await AsyncStorage.getItem('@token');
-    return (
-      fetch('http://10.0.2.2:3333/api/1.0.0/find', {
-        method: 'GET',
-        headers: {'Content-Type': 'application/json', 'X-Authorization': token},
+  getAllLocations = async () => {
+    let value = await AsyncStorage.getItem('@token');
+    return fetch('http://10.0.2.2:3333/api/1.0.0/find', {
+      method: 'GET',
+      headers: {
+        'X-authorization': value,
+      },
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else if (response.status === 400) {
+          throw 'Unauthorized';
+        } else if (response.status === 401) {
+          throw 'Bad request';
+        } else {
+          throw 'Something went wrong';
+        }
       })
-        .then((response) => {
-          if (response.status === 200) {
-            Alert.alert('Successfully logged in');
-            return response.json();
-          } else if (response.status === 400) {
-            console.error('Invalid email or password');
-          } else if (response.status === 500) {
-            console.error('Server error');
-          } else {
-            console.error('Error');
-          }
-        })
-        .then((response) => response.json())
-        .then((responseJson) => {
-          this.setState({
-            Locations: responseJson,
-          });
-        })
-
-        //await AsyncStorage.setItem('@token', responseJson.token);
-        //this.props.navigation.navigate('Home');
-
-        .catch((error) => {
-          //Alert.alert('Could not log in');
-          console.error(error);
-        })
-    );
+      .then(async (responseJson) => {
+        this.setState({Locations: responseJson});
+      })
+      .catch((error) => {
+        console.log(error);
+        ToastAndroid.show(error, ToastAndroid.SHORT);
+      });
   };
-
+  componentDidMount() {
+    this.unsubscribe = this.props.navigation.addListener('focus', () => {
+      this.getAllLocations();
+    });
+  }
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
   render() {
     const navigation = this.props.navigation;
 
     return (
-      <SafeAreaView style={styles.container}>
+      <FlatList
+        data={this.state.Locations}
+        renderItem={({item}) => (
+          <View>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('Location1', {
+                  location_id: item.location_id,
+                })
+              }>
+              <Image
+                style={{height: 200, width: 200}}
+                source={{uri: item.photo_path}}
+              />
+            </TouchableOpacity>
+            <View>
+              <Text>{item.location_name}</Text>
+
+              <Text>{item.location_town}</Text>
+
+              <Text>{item.avg_overall_rating}</Text>
+            </View>
+          </View>
+        )}
+        keyExtractor={(item) => item.location_id.toString()}
+      />
+
+      /*} <SafeAreaView style={styles.container}>
         <SafeAreaView style={styles.HorizontalScroll}>
           <Text style={styles.Pic1Title}>Top-rated Cafés</Text>
 
+
+
+
+
+
+
+
+
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           <ScrollView horizontal>
             <TouchableOpacity onPress={() => navigation.navigate('Location1')}>
-              <Text style={{alignSelf: 'center'}}>Best Brews</Text>
+            s  <Text style={{alignSelf: 'center'}}>Best Brews</Text>
               <Image
                 style={styles.Café1}
                 resizeMode="cover"
@@ -99,7 +154,7 @@ class HomeScreen extends Component {
                 }}
               />
             </TouchableOpacity>
-          </ScrollView>
+              </ScrollView>
         </SafeAreaView>
 
         <SafeAreaView style={styles.HorizontalScroll}>
@@ -143,6 +198,7 @@ class HomeScreen extends Component {
           </ScrollView>
         </SafeAreaView>
       </SafeAreaView>
+              */
     );
   }
 }
