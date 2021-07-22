@@ -9,6 +9,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   ScrollView,
+  FlatList,
   TouchableHighlight,
 } from 'react-native';
 
@@ -84,72 +85,89 @@ export default class PostView extends Component {
     const navigation = this.props.navigation;
 
     return (
-      <ScrollView>
-        <View style={styles.Container}>
-          <View style={styles.Header}>
-            <ImageBackground
-              style={styles.ImageCafe1}
-              source={{uri: this.state.photo_path}}
-            />
-          </View>
-
-          <View style={styles.Location1Page}>
-            <Text style={styles.CafeName}>
-              {this.state.location_name}
-
-              <TouchableOpacity style={styles.heartIcon}>
-                <Icon name="heart" size={30} color="grey" />
-              </TouchableOpacity>
-            </Text>
-
-            <Text style={styles.TextLocation1}>{this.state.location_town}</Text>
-
-            <Text style={styles.Distance}>0.6 miles from you</Text>
-
-            <Text style={styles.Description}>
-              A lovely place to sit and enjoy a beverage during your breaks!{' '}
-              {'\n'}
-            </Text>
-
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('Reviews', {
-                  location_id: this.state.location_id,
-                })
-              }
-              style={styles.AddReviewButton}>
-              <Text style={styles.TextAddReview}>Add a review</Text>
-            </TouchableOpacity>
-
-            <View
-              style={{
-                borderBottomColor: '#f08200',
-                borderBottomWidth: 1,
-              }}
-            />
-            {/* here */}
-            <Text style={styles.TextReviewTitle1}>{'\n'}Reviews</Text>
-
-            <View style={{flexDirection: 'row', textAlign: 'left'}}>
-              <Image
-                style={styles.ImageReview}
-                source={{
-                  uri:
-                    'https://upload.wikimedia.org/wikipedia/commons/4/45/A_small_cup_of_coffee.JPG',
-                }}
-                style={{width: 80, height: 80, borderRadius: 15}}
-              />
-              <Text style={styles.TextReview1}>
-                I've tried so many coffee drinks from different cafés but Best
-                Brews has the best ones ever! I ordered one of their cappuccinos
-                this morning and it was great! Wish they had more variety but
-                honestly anything you get from this café is perfect. Can't
-                believe I haven't tried this place earlier.
-              </Text>
-            </View>
-          </View>
+      <View style={styles.Container}>
+        <View style={styles.Header}>
+          <ImageBackground
+            style={styles.ImageCafe1}
+            source={{uri: this.state.photo_path}}
+          />
         </View>
-      </ScrollView>
+
+        <View style={styles.Location1Page}>
+          <Text style={styles.CafeName}>
+            {this.state.location_name}
+
+            <TouchableOpacity style={styles.heartIcon}>
+              <Icon name="heart" size={30} color="grey" />
+            </TouchableOpacity>
+          </Text>
+
+          <Text style={styles.TextLocation1}>{this.state.location_town}</Text>
+
+          <Text style={styles.Distance}>0.6 miles from you</Text>
+
+          <Text style={styles.Description}>
+            A lovely place to sit and enjoy a beverage during your breaks!{' '}
+            {'\n'}
+          </Text>
+
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('Reviews', {
+                location_id: this.state.location_id,
+              })
+            }
+            style={styles.AddReviewButton}>
+            <Text style={styles.TextAddReview}>Add a review</Text>
+          </TouchableOpacity>
+
+          <View
+            style={{
+              borderBottomColor: '#f08200',
+              borderBottomWidth: 1,
+            }}
+          />
+          {/* here */}
+          <Text style={styles.TextReviewTitle1}>{'\n'}Reviews</Text>
+
+          <FlatList
+            style={{height: '25%'}}
+            data={this.state.location_reviews}
+            renderItem={({item}) => (
+              <View>
+                <Text style={styles.formLabel}>
+                  Over All Rating: {item.overall_rating}
+                </Text>
+
+                <Text style={styles.formLabel}>
+                  Price Rating: {item.price_rating}
+                </Text>
+
+                <Text style={styles.formLabel}>
+                  Quality Rating: {item.quality_rating}
+                </Text>
+
+                <Text style={styles.formLabel}>
+                  Cleanliness Rating: {item.clenliness_rating}
+                </Text>
+
+                <Text style={styles.formLabel}>Review Body:</Text>
+                <Text style={styles.formLabel}>{item.review_body}</Text>
+
+                <View
+                  style={{
+                    borderBottomColor: 'black',
+                    borderBottomWidth: 1,
+                  }}
+                />
+              </View>
+            )}
+            keyExtractor={(item) => item.review_id.toString()}
+          />
+
+          <View style={{flexDirection: 'row', textAlign: 'left'}}></View>
+        </View>
+      </View>
     );
   }
 }
