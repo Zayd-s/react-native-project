@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Stars from 'react-native-stars';
 import {
   StyleSheet,
   ToastAndroid,
@@ -68,7 +69,7 @@ class ReviewsScreen extends Component {
         words[i] === 'cakes' ||
         words[i] === 'pastries'
       ) {
-        alert('Dear user the review should only be about coffee!');
+        alert('Please make sure your review is only about Coffee!');
         return false;
       }
     }
@@ -77,60 +78,85 @@ class ReviewsScreen extends Component {
 
   render() {
     return (
-      <ScrollView>
-        <SafeAreaView style={styles.container}>
-          <View style={styles.Title}>
-            <Text style={styles.CreateReview}>
-              {'\n'}
-              {'\n'}Add a Review
-            </Text>
+      <View>
+        <ScrollView>
+          <View style={styles.formItem}>
+            <Text style={styles.formLabel}>Over All</Text>
+            <View style={{alignItems: 'center'}}>
+              <Stars
+                style={styles.attempt}
+                half={false}
+                default={1}
+                update={(overall_rating) => this.setState({overall_rating})}
+                spacing={5}
+                starSize={25}
+                count={5}
+              />
+            </View>
           </View>
+          <View style={styles.formItem}>
+            <Text style={styles.formLabel}>price_rating</Text>
+            <View style={{alignItems: 'center'}}>
+              <Stars
+                style={styles.attempt}
+                half={false}
+                default={1}
+                update={(price_rating) => this.setState({price_rating})}
+                spacing={5}
+                starSize={25}
+                count={5}
+              />
+            </View>
+          </View>
+          <View style={styles.formItem}>
+            <Text style={styles.formLabel}>quality_rating</Text>
+            <View style={{alignItems: 'center'}}>
+              <Stars
+                style={styles.attempt}
+                half={false}
+                default={1}
+                update={(quality_rating) => this.setState({quality_rating})}
+                spacing={5}
+                starSize={25}
+                count={5}
+              />
+            </View>
+          </View>
+          <View style={styles.formItem}>
+            <Text style={styles.formLabel}>clenliness_rating</Text>
+            <View style={{alignItems: 'center'}}>
+              <Stars
+                style={styles.attempt}
+                half={false}
+                default={1}
+                update={(clenliness_rating) =>
+                  this.setState({clenliness_rating})
+                }
+                spacing={5}
+                starSize={25}
+                count={5}
+              />
+            </View>
+          </View>
+          <View>
+            <Text style={styles.formLabel}>
+              Review {'\n'}
+              {'\n'}
+            </Text>
+            <TextInput
+              onChangeText={(review_body) => this.setState({review_body})}
+              value={this.state.review_body}
+              style={styles.ReviewBox}
+              placeholder="Write your review here"></TextInput>
 
-          <Text style={styles.ReviewText}>{this.state.location_id}</Text>
-          <Text style={styles.ReviewText}>Overall rating</Text>
-          <TextInput
-            onChangeText={(overall_rating) => this.setState({overall_rating})}
-            value={this.state.overall_rating}
-            style={styles.RatingBox}
-            placeholder="Select rating"></TextInput>
-
-          <Text style={styles.ReviewText}>Price</Text>
-          <TextInput
-            onChangeText={(price_rating) => this.setState({price_rating})}
-            value={this.state.price_rating}
-            style={styles.RatingBox}
-            placeholder="Select rating"></TextInput>
-
-          <Text style={styles.ReviewText}>Quality</Text>
-          <TextInput
-            onChangeText={(quality_rating) => this.setState({quality_rating})}
-            value={this.state.quality_rating}
-            style={styles.RatingBox}
-            placeholder="Select rating"></TextInput>
-
-          <Text style={styles.ReviewText}>Clenliness</Text>
-          <TextInput
-            onChangeText={(clenliness_rating) =>
-              this.setState({clenliness_rating})
-            }
-            value={this.state.clenliness_rating}
-            style={styles.RatingBox}
-            placeholder="Select rating"></TextInput>
-
-          <Text style={styles.ReviewText}>Review</Text>
-          <TextInput
-            onChangeText={(review_body) => this.setState({review_body})}
-            value={this.state.review_body}
-            style={styles.ReviewBox}
-            placeholder="Write your review here"></TextInput>
-
-          <TouchableOpacity
-            onPress={() => this.profanityFilter()}
-            style={styles.SaveChangesBox}>
-            <Text style={styles.SaveChangesText}>Save Changes</Text>
-          </TouchableOpacity>
-        </SafeAreaView>
-      </ScrollView>
+            <TouchableOpacity
+              onPress={() => this.profanityFilter()}
+              style={styles.SaveChangesBox}>
+              <Text style={styles.SaveChangesText}>Save Changes</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </View>
     );
   }
 }

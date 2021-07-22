@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/AntDesign';
+import Stars from 'react-native-stars';
 import {
   StyleSheet,
   Text,
@@ -135,21 +136,40 @@ export default class PostView extends Component {
             data={this.state.location_reviews}
             renderItem={({item}) => (
               <View>
-                <Text style={styles.formLabel}>
-                  Over All Rating: {item.overall_rating}
-                </Text>
+                <Text style={styles.formLabel}>Over All Rating:</Text>
 
-                <Text style={styles.formLabel}>
-                  Price Rating: {item.price_rating}
-                </Text>
+                <Stars
+                  display={item.overall_rating}
+                  spacing={5}
+                  starSize={25}
+                  count={5}
+                />
 
-                <Text style={styles.formLabel}>
-                  Quality Rating: {item.quality_rating}
-                </Text>
+                <Text style={styles.formLabel}>Price Rating:</Text>
 
-                <Text style={styles.formLabel}>
-                  Cleanliness Rating: {item.clenliness_rating}
-                </Text>
+                <Stars
+                  display={item.price_rating}
+                  spacing={5}
+                  starSize={25}
+                  count={5}
+                />
+
+                <Text style={styles.formLabel}>Quality Rating:</Text>
+
+                <Stars
+                  display={item.quality_rating}
+                  spacing={5}
+                  starSize={25}
+                  count={5}
+                />
+
+                <Text style={styles.formLabel}>Cleanliness Rating:</Text>
+                <Stars
+                  display={item.clenliness_rating}
+                  spacing={5}
+                  starSize={25}
+                  count={5}
+                />
 
                 <Text style={styles.formLabel}>Review Body:</Text>
                 <Text style={styles.formLabel}>{item.review_body}</Text>
