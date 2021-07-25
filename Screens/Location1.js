@@ -7,6 +7,7 @@ import {
   Text,
   View,
   Image,
+  ToastAndroid,
   ImageBackground,
   TouchableOpacity,
   ScrollView,
@@ -33,24 +34,26 @@ export default class PostView extends Component {
     };
   }
 
-  getLocationDetails = async () => {
+  getLocDetails = async () => {
     let token = await AsyncStorage.getItem('@token');
     return fetch(
       'http://10.0.2.2:3333/api/1.0.0/location/' + this.state.location_id,
       {
-        method: 'get',
+        method: 'GET',
         headers: {
-          'x-authorization': token,
+          'X-Authorization': token,
         },
       },
     )
       .then((response) => {
         if (response.status === 200) {
-          console.log(' in');
+          console.log('OK');
           return response.json();
+        } else if (response.status === 404) {
+          console.log('Not Found');
         } else {
-          console.log('not in');
-          throw 'Somthing went wrong';
+          console.log('Server Error');
+          throw 'Error';
         }
       })
       .then(async (responseJson) => {
@@ -73,9 +76,124 @@ export default class PostView extends Component {
       });
   };
 
+  ifFavourite = async () => {
+    let token = await AsyncStorage.getItem('@token');
+    return fetch('http://10.0.2.2:3333/api/1.0.0/find?search_in=favourite', {
+      method: 'GET',
+      headers: {
+        'X-Authorization': token,
+      },
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw 'Error';
+        }
+      })
+      .then(async (responseJson) => {
+        let status = false;
+        for (let i = 0; i < responseJson.length; i++) {
+          if (responseJson[i].location_id === this.state.location_id) {
+            status = true;
+          }
+        }
+        this.setState({isFavourite: status});
+      })
+      .catch((error) => {
+        console.log(error);
+        ToastAndroid.show(error, ToastAndroid.SHORT);
+      });
+  };
+
+  //function - add location to favourites
+  addFavourite = async () => {
+    let token = await AsyncStorage.getItem('@token');
+    return fetch(
+      'http://10.0.2.2:3333/api/1.0.0/location/' +
+        this.state.location_id +
+        '/favourite',
+      {
+        method: 'POST',
+        headers: {
+          'X-Authorization': token,
+        },
+      },
+    )
+      .then((response) => {
+        if (response.status === 200) {
+          console.log('Added to favourites');
+          ToastAndroid.show('Added to favourites', ToastAndroid.show);
+          this.setState({isFavourite: true});
+        } else if (response.status === 400) {
+          console.error('Bad request');
+        } else if (response.status === 401) {
+          console.error('Unauthorised');
+        } else if (response.status === 404) {
+          console.error('Not found');
+        } else if (response.status === 500) {
+          console.error('Server error');
+        } else {
+          throw 'Error';
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        ToastAndroid.show(error, ToastAndroid.SHORT);
+      });
+  };
+
+  //function - remove favourite location
+  removeFavourite = async () => {
+    let token = await AsyncStorage.getItem('@token');
+    return fetch(
+      'http://10.0.2.2:3333/api/1.0.0/location/' +
+        this.state.location_id +
+        '/favourite',
+      {
+        method: 'DELETE',
+        headers: {
+          'X-Authorization': token,
+        },
+      },
+    )
+      .then((response) => {
+        if (response.status === 200) {
+          console.log('Removed from favourites');
+          ToastAndroid.show('Removed from favourites', ToastAndroid.show);
+          this.setState({isFavourite: false});
+        } else if (response.status === 401) {
+          console.error('Unauthorised');
+        } else if (response.status === 403) {
+          console.error('Forbidden');
+        } else if (response.status === 404) {
+          console.error('Not found');
+        } else if (response.status === 500) {
+          console.error('Server error');
+        } else {
+          throw 'Error';
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        ToastAndroid.show(error, ToastAndroid.SHORT);
+      });
+  };
+
+  manageFavourites = () => {
+    if (this.state.isFavourite) {
+      this.removeFavourite();
+      this.setState({isFavourite: false});
+    } else {
+      this.addFavourite();
+      this.setState({isFavourite: true});
+    }
+  };
+
   componentDidMount() {
     this.unsubscribe = this.props.navigation.addListener('focus', () => {
-      this.getLocationDetails();
+      this.getLocDetails();
+      this.ifFavourite();
     });
   }
   componentWillUnmount() {
@@ -98,8 +216,14 @@ export default class PostView extends Component {
           <Text style={styles.CafeName}>
             {this.state.location_name}
 
-            <TouchableOpacity style={styles.heartIcon}>
-              <Icon name="heart" size={30} color="grey" />
+            <TouchableOpacity
+              style={styles.heartIcon}
+              onPress={() => this.manageFavourites()}>
+              <Icon
+                name="heart"
+                size={30}
+                color={this.state.isFavourite === true ? 'red' : 'grey'}
+              />
             </TouchableOpacity>
           </Text>
 
