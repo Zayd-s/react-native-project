@@ -16,6 +16,7 @@ import Location2Screen from './Screens/Location2';
 import Location3Screen from './Screens/Location3';
 import EditProfileScreen from './Screens/EditProfile';
 import MyReviewsScreen from './Screens/MyReviews';
+import EditReviewScreen from './Screens/EditReview';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -97,6 +98,11 @@ class App extends Component {
             name="EditProfile"
             component={EditProfileScreen}
             options={{title: 'Edit Profile'}}
+          />
+          <Stack.Screen
+            name="EditReview"
+            component={EditReviewScreen}
+            options={{title: 'Edit Review'}}
           />
         </Stack.Navigator>
       </NavigationContainer>
