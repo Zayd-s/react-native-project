@@ -10,8 +10,6 @@ import SignupScreen from './Screens/Signup';
 import ProfileScreen from './Screens/Profile';
 import ReviewsScreen from './Screens/Reviews';
 import Location1Screen from './Screens/Location1';
-import Location2Screen from './Screens/Location2';
-import Location3Screen from './Screens/Location3';
 import EditProfileScreen from './Screens/EditProfile';
 import MyReviewsScreen from './Screens/MyReviews';
 import EditReviewScreen from './Screens/EditReview';
@@ -68,16 +66,6 @@ class App extends Component {
             component={MyReviewsScreen}
             component={myTabs}
             options={{title: 'My Reviews'}}
-          />
-          <Stack.Screen
-            name="Location2"
-            component={Location2Screen}
-            options={{title: 'Latte Love'}}
-          />
-          <Stack.Screen
-            name="Location3"
-            component={Location3Screen}
-            options={{title: 'Yomo Café'}}
           />
           <Stack.Screen
             name="EditProfile"
