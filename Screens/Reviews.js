@@ -6,7 +6,6 @@ import {
   ToastAndroid,
   View,
   Text,
-  SafeAreaView,
   TouchableOpacity,
   TextInput,
   ScrollView,
@@ -81,7 +80,7 @@ class ReviewsScreen extends Component {
       <View>
         <ScrollView>
           <View>
-            <Text>Over All</Text>
+            <Text>Overall rating:</Text>
             <View style={{alignItems: 'center'}}>
               <Stars
                 half={false}
@@ -94,7 +93,7 @@ class ReviewsScreen extends Component {
             </View>
           </View>
           <View>
-            <Text>price_rating</Text>
+            <Text>Price rating:</Text>
             <View style={{alignItems: 'center'}}>
               <Stars
                 half={false}
@@ -107,7 +106,7 @@ class ReviewsScreen extends Component {
             </View>
           </View>
           <View>
-            <Text>quality_rating</Text>
+            <Text>Quality rating:</Text>
             <View style={{alignItems: 'center'}}>
               <Stars
                 half={false}
@@ -120,7 +119,7 @@ class ReviewsScreen extends Component {
             </View>
           </View>
           <View>
-            <Text>clenliness_rating</Text>
+            <Text>Clenliness rating:</Text>
             <View style={{alignItems: 'center'}}>
               <Stars
                 half={false}

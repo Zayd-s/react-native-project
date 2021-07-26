@@ -10,6 +10,7 @@ import {
   Image,
   StyleSheet,
   SafeAreaView,
+  TextInput,
 } from 'react-native';
 
 class MyReviews extends Component {
@@ -17,6 +18,8 @@ class MyReviews extends Component {
     super(props);
 
     this.state = {
+      location_id: this.props.route.params.location_id,
+      review_id: this.props.route.params.review_id,
       reviews: [],
       overall_rating: 0,
       price_rating: 0,
@@ -50,11 +53,11 @@ class MyReviews extends Component {
     )
       .then((response) => {
         if (response.status === 200) {
-          ToastAndroid.show('Review has been edited', ToastAndroid.SHORT);
+          ToastAndroid.show('Your review has been edited', ToastAndroid.SHORT);
         } else if (response.status === 400) {
           throw 'Bad request';
         } else if (response.status === 401) {
-          throw 'Unauthorized';
+          throw 'Unauthorised';
         } else if (response.status === 404) {
           throw 'Not found';
         } else {
@@ -71,93 +74,97 @@ class MyReviews extends Component {
       });
   };
 
+  profanityFilter = () => {
+    let words = this.state.review_body.split('');
+    for (let i = 0; i < words.length; i++) {
+      if (
+        words[i] === 'tea' ||
+        words[i] === 'cakes' ||
+        words[i] === 'pastries'
+      ) {
+        alert('Please make sure your review is only about Coffee!');
+        return false;
+      }
+    }
+    return this.editReview();
+  };
+
   render() {
     const navigation = this.props.navigation;
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.Title}>
-          <Text style={styles.MyReviewsText}>My Reviews</Text>
+          <Text style={styles.MyReviewsText}>Edit your review</Text>
         </View>
-
-        <View style={{height: '90%'}}>
-          <FlatList
-            style={{height: '100%'}}
-            data={this.state.reviews}
-            renderItem={({item}) => (
-              <View>
-                <Text>Location Name: {item.location.location_name}</Text>
-                <Text>Over All Rating:</Text>
-                <Stars
-                  display={item.review.overall_rating}
-                  spacing={5}
-                  starSize={25}
-                  count={5}
-                />
-                <Text>Price Rating:</Text>
-                <Stars
-                  display={item.review.price_rating}
-                  spacing={5}
-                  starSize={25}
-                  count={5}
-                />
-                <Text>Quality Rating:</Text>
-                <Stars
-                  display={item.review.quality_rating}
-                  spacing={5}
-                  starSize={25}
-                  count={5}
-                />
-                <Text>Cleanliness Rating:</Text>
-                <Stars
-                  display={item.review.clenliness_rating}
-                  spacing={5}
-                  starSize={25}
-                  count={5}
-                />
-                <Text>Review Body:</Text>
-                <Text>{item.review.review_body}</Text>
-                <View>
-                  {
-                    //this link goes to a page called EditReview
-                    // in this page i'm going to make the endpoint functionality of updating reviews.
-                  }
-
-                  <TouchableOpacity
-                    onPress={() =>
-                      navigate.navigate('EditReview', {
-                        review_id: item.review.review_id,
-                        location_id: item.location.location_id,
-                      })
-                    }>
-                    <Text style={styles.deleteText}>Edit This Review</Text>
-                  </TouchableOpacity>
-                </View>
-
-                <View>
-                  <TouchableOpacity
-                    onPress={() =>
-                      this.deleteReview(
-                        item.review.review_id,
-                        item.location.location_id,
-                      ) && this.fetchInfo()
-                    }>
-                    <Text style={styles.deleteText}>
-                      {''}
-                      Delete This Review
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-
-                <View
-                  style={{
-                    borderBottomColor: 'black',
-                    borderBottomWidth: 10,
-                  }}
-                />
-              </View>
-            )}
-            keyExtractor={(item) => item.review.review_id.toString()}
-          />
+        <View>
+          <View>
+            <Text>Overall rating:</Text>
+            <View style={{alignItems: 'center'}}>
+              <Stars
+                half={false}
+                default={1}
+                update={(overall_rating) => this.setState({overall_rating})}
+                spacing={5}
+                starSize={25}
+                count={5}
+              />
+            </View>
+          </View>
+          <View>
+            <Text>Price rating:</Text>
+            <View style={{alignItems: 'center'}}>
+              <Stars
+                half={false}
+                default={1}
+                update={(price_rating) => this.setState({price_rating})}
+                spacing={5}
+                starSize={25}
+                count={5}
+              />
+            </View>
+          </View>
+          <View>
+            <Text>Quality rating:</Text>
+            <View style={{alignItems: 'center'}}>
+              <Stars
+                half={false}
+                default={1}
+                update={(quality_rating) => this.setState({quality_rating})}
+                spacing={5}
+                starSize={25}
+                count={5}
+              />
+            </View>
+          </View>
+          <View>
+            <Text>Clenliness rating:</Text>
+            <View style={{alignItems: 'center'}}>
+              <Stars
+                half={false}
+                default={1}
+                update={(clenliness_rating) =>
+                  this.setState({clenliness_rating})
+                }
+                spacing={5}
+                starSize={25}
+                count={5}
+              />
+            </View>
+          </View>
+          <View>
+            <Text>Review Description:</Text>
+            <TextInput
+              style={styles.EmailBox}
+              placeholder="Press here to type your new review description"
+              onChangeText={(review_body) => this.setState({review_body})}
+              value={this.state.review_body}
+            />
+          </View>
+          <View>
+            <TouchableOpacity onPress={() => this.profanityFilter()}>
+              <Text style={styles.deleteText}>Edit this review</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </SafeAreaView>
     );
@@ -185,5 +192,11 @@ const styles = StyleSheet.create({
   deleteText: {
     color: 'orange',
     fontWeight: 'bold',
+  },
+  EmailBox: {
+    backgroundColor: '#dfdfdf',
+    padding: 5,
+    alignSelf: 'center',
+    borderRadius: 10,
   },
 });

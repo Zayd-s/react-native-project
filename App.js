@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createDrawerNavigator} from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import LoginScreen from './Screens/Login';
@@ -67,6 +66,7 @@ class App extends Component {
           <Stack.Screen
             name="MyReviews"
             component={MyReviewsScreen}
+            component={myTabs}
             options={{title: 'My Reviews'}}
           />
           <Stack.Screen
