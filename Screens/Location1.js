@@ -31,6 +31,7 @@ export default class PostView extends Component {
       avg_clenliness_rating: 1,
       location_reviews: [],
       isFavourite: '',
+      liked_reviews: [],
     };
   }
 
@@ -190,10 +191,300 @@ export default class PostView extends Component {
     }
   };
 
+  ////////////////
+  /*
+  getRevDetails = async () => {
+    let token = await AsyncStorage.getItem('@token');
+    return fetch(
+      'http://10.0.2.2:3333/api/1.0.0/location/' + this.state.location_id + '/review/' + review_id + '/like',
+      {
+        method: 'GET',
+        headers: {
+          'X-Authorization': token,
+        },
+      },
+    )
+      .then((response) => {
+        if (response.status === 200) {
+          console.log('OK');
+          return response.json();
+        } else if (response.status === 404) {
+          console.log('Not Found');
+        } else {
+          console.log('Server Error');
+          throw 'Error';
+        }
+      })
+      .then(async (responseJson) => {
+        this.setState({review_id: responseJson.review_id});
+        this.setState({likes: responseJson.likes});
+      })
+      .catch((error) => {
+        console.log(error);
+        ToastAndroid.show(error, ToastAndroid.SHORT);
+      });
+  };
+
+  ifLike = async () => {
+    let token = await AsyncStorage.getItem('@token');
+    return fetch(
+      'http://10.0.2.2:3333/api/1.0.0/location/' +
+        location_id +
+        'review/' +
+        review_id +
+        'like',
+      {
+        method: 'GET',
+        headers: {
+          'X-Authorization': token,
+        },
+      },
+    )
+      .then((response) => {
+        if (response.status === 200) {
+          console.log('OK');
+          return response.json();
+        } else if (response.status === 400) {
+          console.error('Bad request');
+        } else if (response.status === 401) {
+          console.error('Unauthorised');
+        } else if (response.status === 404) {
+          console.error('Not found');
+        } else if (response.status === 500) {
+          console.error('Server error');
+        } else {
+          throw 'Error';
+        }
+      })
+      .then(async (responseJson) => {
+        let status = false;
+        for (let i = 0; i < responseJson.length; i++) {
+          if (responseJson[i].review_id === this.state.review_id) {
+            status = true;
+          }
+        }
+        this.setState({isLiked: status});
+      })
+      .catch((error) => {
+        console.log(error);
+        ToastAndroid.show(error, ToastAndroid.SHORT);
+      });
+  };
+
+
+  //function - add like to review
+  addLike = async (review_id) => {
+    let token = await AsyncStorage.getItem('@token');
+    return fetch(
+      'http://10.0.2.2:3333/api/1.0.0/location/' +
+        this.state.location_id +
+        '/review/' +
+        review_id +
+        '/like',
+      {
+        method: 'POST',
+        headers: {
+          'X-Authorization': token,
+        },
+      },
+    )
+      .then((response) => {
+        if (response.status === 200) {
+          console.log('Liked review');
+          ToastAndroid.show('Liked review', ToastAndroid.show);
+          this.setState({isLiked: true});
+        } else if (response.status === 400) {
+          console.error('Bad request');
+        } else if (response.status === 401) {
+          console.error('Unauthorised');
+        } else if (response.status === 404) {
+          console.error('Not found');
+        } else if (response.status === 500) {
+          console.error('Server error');
+        } else {
+          throw 'Error';
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        ToastAndroid.show(error, ToastAndroid.SHORT);
+      });
+  };
+
+  removeLike = async (review_id) => {
+    let token = await AsyncStorage.getItem('@token');
+    return fetch(
+      'http://10.0.2.2:3333/api/1.0.0/location/' +
+        this.state.location_id +
+        '/review/' +
+        review_id +
+        '/like',
+      {
+        method: 'DELETE',
+        headers: {
+          'X-Authorization': token,
+        },
+      },
+    )
+      .then((response) => {
+        if (response.status === 200) {
+          console.log('Unliked review');
+          ToastAndroid.show('Unliked review', ToastAndroid.show);
+          this.setState({isLiked: false});
+        } else if (response.status === 401) {
+          console.error('Unauthorised');
+        } else if (response.status === 403) {
+          console.error('Forbidden');
+        } else if (response.status === 404) {
+          console.error('Not found');
+        } else if (response.status === 500) {
+          console.error('Server error');
+        } else {
+          throw 'Error';
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        ToastAndroid.show(error, ToastAndroid.SHORT);
+      });
+  };
+
+  manageLiked = (review_id) => {
+    //this.setState({review_id});
+    if (this.state.isLiked) {
+      this.removeLike(review_id);
+      //ToastAndroid.show('Like has been removed', ToastAndroid.SHORT);
+      this.setState({isLiked: false});
+    } else {
+      this.addLike(review_id);
+      //ToastAndroid.show('Like has been added', ToastAndroid.SHORT);
+      this.setState({isLiked: true});
+    }
+  };
+  ////////////////
+*/
+
+  likeReview = async (rev_id, loc_id) => {
+    let token = await AsyncStorage.getItem('@token');
+    return fetch(
+      'http://10.0.2.2:3333/api/1.0.0/location/' +
+        loc_id +
+        '/review/' +
+        rev_id +
+        '/like',
+      {
+        method: 'POST',
+        headers: {
+          'X-Authorization': token,
+        },
+      },
+    )
+      .then((response) => {
+        if (response.status === 200) {
+          ToastAndroid.show('Review liked', ToastAndroid.show);
+          this.getLikedReviews();
+        } else if (response.status === 400) {
+          console.error('Bad request');
+        } else if (response.status === 401) {
+          console.error('Unauthorised');
+        } else if (response.status === 404) {
+          console.error('Not found');
+        } else if (response.status === 500) {
+          console.error('Server error');
+        } else {
+          throw 'Error';
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        ToastAndroid.show(error, ToastAndroid.SHORT);
+      });
+  };
+  //401 403 404 500
+  unlikeReview = async (rev_id, loc_id) => {
+    let token = await AsyncStorage.getItem('@token');
+    return fetch(
+      'http://10.0.2.2:3333/api/1.0.0/location/' +
+        loc_id +
+        '/review/' +
+        rev_id +
+        '/like',
+      {
+        method: 'DELETE',
+        headers: {
+          'X-Authorization': token,
+        },
+      },
+    )
+      .then((response) => {
+        if (response.status === 200) {
+          ToastAndroid.show('Review unliked', ToastAndroid.show);
+          this.getLikedReviews();
+        } else if (response.status === 401) {
+          console.error('Bad request');
+        } else if (response.status === 403) {
+          console.error('Unauthorised');
+        } else if (response.status === 404) {
+          console.error('Not found');
+        } else if (response.status === 500) {
+          console.error('Server error');
+        } else {
+          throw 'Error';
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        ToastAndroid.show(error, ToastAndroid.SHORT);
+      });
+  };
+
+  getLikedReviews = async () => {
+    let id = await AsyncStorage.getItem('@userID');
+    let token = await AsyncStorage.getItem('@token');
+    return fetch('http://10.0.2.2:3333/api/1.0.0/user/' + id, {
+      method: 'GET',
+      headers: {
+        'X-Authorization': token,
+      },
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw 'Error';
+        }
+      })
+      .then(async (responseJson) => {
+        this.setState({liked_reviews: responseJson.liked_reviews});
+      })
+      .catch((error) => {
+        console.log(error);
+        ToastAndroid.show(error, ToastAndroid.SHORT);
+      });
+  };
+
+  isLiked(rev_id) {
+    let status = false;
+    for (let i = 0; i < this.state.liked_reviews.length; i++) {
+      if (this.state.liked_reviews[i].review.review_id === rev_id)
+        status = true;
+    }
+    return status;
+  }
+
+  manageLiked(rev_id, loc_id) {
+    if (this.isLiked(rev_id)) {
+      this.unlikeReview(rev_id, loc_id);
+    } else {
+      this.likeReview(rev_id, loc_id);
+    }
+  }
+
   componentDidMount() {
     this.unsubscribe = this.props.navigation.addListener('focus', () => {
       this.getLocDetails();
       this.ifFavourite();
+      this.getLikedReviews();
     });
   }
   componentWillUnmount() {
@@ -261,7 +552,6 @@ export default class PostView extends Component {
             renderItem={({item}) => (
               <View>
                 <Text style={styles.formLabel}>Over All Rating:</Text>
-
                 <Stars
                   display={item.overall_rating}
                   spacing={5}
@@ -297,11 +587,24 @@ export default class PostView extends Component {
 
                 <Text style={styles.formLabel}>Review Body:</Text>
                 <Text style={styles.formLabel}>{item.review_body}</Text>
+                <TouchableOpacity
+                  onPress={() =>
+                    this.manageLiked(item.review_id, this.state.location_id)
+                  }>
+                  <Icon
+                    name="like1"
+                    size={30}
+                    color={
+                      this.isLiked(item.review_id) === true ? 'orange' : 'grey'
+                    }
+                  />
+                  <Text>{item.likes}</Text>
+                </TouchableOpacity>
 
                 <View
                   style={{
                     borderBottomColor: 'black',
-                    borderBottomWidth: 1,
+                    borderBottomWidth: 5,
                   }}
                 />
               </View>
