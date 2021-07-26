@@ -21,8 +21,6 @@ class SignupScreen extends Component {
     };
   }
 
-  //200, 401, 404, 500
-
   patchInfo = async () => {
     const {first_name, last_name, email, password} = this.props.route.params;
     let to_send = {};
@@ -68,16 +66,6 @@ class SignupScreen extends Component {
         console.error('Error');
       }
     });
-
-    /*
-      .then((responseJson) => {
-        this.setState({
-          first_name: responseJson.first_name,
-          last_name: responseJson.last_name,
-          email: responseJson.email,
-        });
-      });
-      */
   };
 
   render() {
@@ -142,28 +130,11 @@ const styles = StyleSheet.create({
   },
   NameBox: {
     backgroundColor: '#dfdfdf',
-    //height: 35,
     padding: 5,
     alignSelf: 'center',
     width: '75%',
     borderRadius: 10,
     top: -40,
-    /*
-    backgroundColor: '#dfdfdf',
-    padding: 5,
-    alignSelf: 'center',
-    width: '75%',
-    borderRadius: 10,
-    */
-  },
-  EditBox: {
-    backgroundColor: '#696969',
-    padding: 10,
-    alignSelf: 'center',
-    width: '15%',
-    borderRadius: 10,
-    top: -40,
-    alignItems: 'center',
   },
   LastNameBox: {
     backgroundColor: '#dfdfdf',
@@ -179,7 +150,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: '75%',
     borderRadius: 10,
-    //top: ,
   },
   PasswordBox: {
     backgroundColor: '#dfdfdf',
@@ -197,10 +167,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     top: 40,
     alignItems: 'center',
-  },
-  EditText: {
-    color: 'white',
-    fontWeight: 'bold',
   },
   SignupText: {
     color: 'white',

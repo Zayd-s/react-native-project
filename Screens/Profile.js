@@ -11,25 +11,6 @@ import {
 } from 'react-native';
 
 export default class Profile extends Component {
-  /*
-  componentDidMount() {
-    this.unsubscribe = this.props.navigation.addListener('focus', () => {
-      this.checkLoggedIn();
-    });
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-  checkLoggedIn = async () => {
-    const value = await AsyncStorage.getItem('@token');
-    if (value == null) {
-      this.props.navigation.navigate('Login');
-    }
-  };
-*/
-
   constructor(props) {
     super(props);
     this.state = {
@@ -39,8 +20,6 @@ export default class Profile extends Component {
       password: '',
     };
   }
-
-  //200, 401, 404, 500
 
   getInfo = async () => {
     let token = await AsyncStorage.getItem('@token');

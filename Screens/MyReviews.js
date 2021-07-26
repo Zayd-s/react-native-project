@@ -26,9 +26,6 @@ class MyReviews extends Component {
     };
   }
 
-  ///////////////////////////////
-  //// get the reviews done by the user
-  ///////////////////////////////
   fetchInfo = async () => {
     let id = await AsyncStorage.getItem('@userID');
     let token = await AsyncStorage.getItem('@token');
@@ -103,7 +100,7 @@ class MyReviews extends Component {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.Title}>
-          <Text style={styles.CreateAcc}>My Reviews</Text>
+          <Text style={styles.MyReviewsText}>My Reviews</Text>
         </View>
 
         <View style={{height: '90%'}}>
@@ -145,14 +142,14 @@ class MyReviews extends Component {
                 <Text>{item.review.review_body}</Text>
                 <View>
                   {
-                    //this link goes to a page called UpdateReview
-                    // in this page there is the functionality of updating reviews.
+                    //this link goes to a page called EditReview
+                    // in this page i'm going to make the endpoint functionality of updating reviews.
                     //
                   }
 
                   <TouchableOpacity
                     onPress={() =>
-                      nav.navigate('UpdateReview', {
+                      navigation.navigate('EditReview', {
                         review_id: item.review.review_id,
                         location_id: item.location.location_id,
                       })
@@ -205,82 +202,13 @@ const styles = StyleSheet.create({
     top: -80,
     alignItems: 'center',
   },
-  CreateAcc: {
-    //top: -120,
+  MyReviewsText: {
     fontWeight: 'bold',
     fontSize: 25,
   },
-  COFFIDA: {
-    fontWeight: 'bold',
-    fontSize: 35,
-  },
-  NameBox: {
-    backgroundColor: '#dfdfdf',
-    //height: 35,
-    padding: 5,
-    alignSelf: 'center',
-    width: '75%',
-    borderRadius: 10,
-    top: -40,
-  },
-  LastNameBox: {
-    backgroundColor: '#dfdfdf',
-    padding: 5,
-    alignSelf: 'center',
-    width: '75%',
-    borderRadius: 10,
-    top: -20,
-  },
-  EmailBox: {
-    backgroundColor: '#dfdfdf',
-    padding: 5,
-    alignSelf: 'center',
-    width: '75%',
-    borderRadius: 10,
-    //top: ,
-  },
-  PasswordBox: {
-    backgroundColor: '#dfdfdf',
-    padding: 5,
-    alignSelf: 'center',
-    width: '75%',
-    borderRadius: 10,
-    top: 20,
-  },
-  SignupBox: {
-    backgroundColor: '#f08200',
-    padding: 10,
-    alignSelf: 'center',
-    width: '75%',
-    borderRadius: 10,
-    top: 40,
-    alignItems: 'center',
-  },
+
   deleteText: {
     color: 'orange',
     fontWeight: 'bold',
-  },
-  LoginText: {
-    top: 80,
-  },
-  LoginText2: {
-    fontWeight: 'bold',
-    color: '#f08200',
-  },
-  Skipbutton: {
-    backgroundColor: '#f08200',
-    //borderwidth : 1,
-    height: 35,
-    width: '45%',
-    borderRadius: 20,
-    paddingVertical: 4,
-    alignSelf: 'center',
-    alignItems: 'center',
-    top: 120,
-  },
-  SkipText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: 'white',
   },
 });

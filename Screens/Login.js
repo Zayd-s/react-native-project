@@ -4,7 +4,6 @@ import {
   StyleSheet,
   View,
   Text,
-  Button,
   TouchableOpacity,
   TextInput,
   Image,
@@ -113,7 +112,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    //alignItems: "center",
     paddingHorizontal: 10,
     top: -50,
   },
@@ -168,14 +166,11 @@ const styles = StyleSheet.create({
     top: 100,
   },
   SignupText2: {
-    //alignSelf: "center",
-    //top: 160,
     fontWeight: 'bold',
     color: '#f08200',
   },
   Skipbutton: {
     backgroundColor: '#f08200',
-    //borderwidth : 1,
     height: 35,
     width: '45%',
     borderRadius: 20,
@@ -187,11 +182,8 @@ const styles = StyleSheet.create({
   SkipText: {
     fontSize: 16,
     fontWeight: 'bold',
-    //alignSelf: "center",
     color: 'white',
   },
 });
 
 export default LoginScreen;
-
-//Add SafeAreaView?

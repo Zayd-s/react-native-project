@@ -400,7 +400,6 @@ export default class PostView extends Component {
         ToastAndroid.show(error, ToastAndroid.SHORT);
       });
   };
-  //401 403 404 500
   unlikeReview = async (rev_id, loc_id) => {
     let token = await AsyncStorage.getItem('@token');
     return fetch(
@@ -551,7 +550,7 @@ export default class PostView extends Component {
             data={this.state.location_reviews}
             renderItem={({item}) => (
               <View>
-                <Text style={styles.formLabel}>Over All Rating:</Text>
+                <Text>Over All Rating:</Text>
                 <Stars
                   display={item.overall_rating}
                   spacing={5}
@@ -559,7 +558,7 @@ export default class PostView extends Component {
                   count={5}
                 />
 
-                <Text style={styles.formLabel}>Price Rating:</Text>
+                <Text>Price Rating:</Text>
 
                 <Stars
                   display={item.price_rating}
@@ -568,7 +567,7 @@ export default class PostView extends Component {
                   count={5}
                 />
 
-                <Text style={styles.formLabel}>Quality Rating:</Text>
+                <Text>Quality Rating:</Text>
 
                 <Stars
                   display={item.quality_rating}
@@ -577,7 +576,7 @@ export default class PostView extends Component {
                   count={5}
                 />
 
-                <Text style={styles.formLabel}>Cleanliness Rating:</Text>
+                <Text>Cleanliness Rating:</Text>
                 <Stars
                   display={item.clenliness_rating}
                   spacing={5}
@@ -585,8 +584,8 @@ export default class PostView extends Component {
                   count={5}
                 />
 
-                <Text style={styles.formLabel}>Review Body:</Text>
-                <Text style={styles.formLabel}>{item.review_body}</Text>
+                <Text>Review Body:</Text>
+                <Text>{item.review_body}</Text>
                 <TouchableOpacity
                   onPress={() =>
                     this.manageLiked(item.review_id, this.state.location_id)
@@ -604,7 +603,7 @@ export default class PostView extends Component {
                 <View
                   style={{
                     borderBottomColor: 'black',
-                    borderBottomWidth: 5,
+                    borderBottomWidth: 10,
                   }}
                 />
               </View>
@@ -624,24 +623,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   Header: {
-    //padding:20,
     alignItems: 'center',
     backgroundColor: '#f08200',
   },
   ImageCafe1: {
-    //width: 400,
     width: '100%',
     height: 200,
-    //flex: 1,
-    //borderRadius: 15,
-    //margin: 10,
   },
-  /*
-  HeaderTitle:{
-    fontSize:30,
-    color:"#FFFFFF",
-    marginTop:10,
-  },*/
   Location1Page: {
     flex: 1,
     padding: 30,
@@ -649,13 +637,11 @@ const styles = StyleSheet.create({
   CafeName: {
     fontSize: 24,
     fontWeight: 'bold',
-    //marginLeft:50,
   },
   heartIcon: {
     paddingLeft: 125,
   },
   Description: {
-    //fontSize:16,
     marginTop: 15,
   },
   TextLocation1: {
@@ -666,51 +652,15 @@ const styles = StyleSheet.create({
   },
   Distance: {
     color: '#696969',
-    //marginTop:-5,
   },
   TextReviewTitle1: {
     color: 'black',
-    //marginTop:10,
     marginBottom: 15,
     fontSize: 16,
     fontWeight: 'bold',
   },
-  TextReview1: {
-    //fontSize:16,
-    //marginTop:15,
-    marginLeft: 15,
-    flex: 1,
-    flexWrap: 'wrap',
-  },
-  ImageReview: {
-    width: 80,
-    height: 80,
-    borderRadius: 15,
-    //borderWidth: 4,
-    //borderColor: "#808080",
-  },
-  /*
-  Avatar: {
-    width: 80,
-    height: 80,
-    borderRadius: 15,
-    //borderWidth: 4,
-    //borderColor: "#808080",
-  }, */
-  Profile: {
-    flexDirection: 'row',
-    marginTop: 20,
-  },
-  /*name:{
-    fontSize:22,
-    color:"#00BFFF",
-    fontWeight:'600',
-    alignSelf:'center',
-    marginLeft:10
-  }, */
   AddReviewButton: {
     backgroundColor: '#f08200',
-    //padding: 10,
     height: 40,
     alignSelf: 'center',
     alignItems: 'center',
@@ -718,15 +668,9 @@ const styles = StyleSheet.create({
     width: '75%',
     borderRadius: 10,
     marginBottom: 10,
-    //marginBottom:10,
-    //marginTop:20,
-    //flexDirection: 'row',
-    //justifyContent: 'center',
-    //alignItems: 'center',
   },
   TextAddReview: {
     color: 'white',
     fontWeight: 'bold',
-    //fontSize:20,
   },
 });

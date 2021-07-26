@@ -80,11 +80,10 @@ class ReviewsScreen extends Component {
     return (
       <View>
         <ScrollView>
-          <View style={styles.formItem}>
-            <Text style={styles.formLabel}>Over All</Text>
+          <View>
+            <Text>Over All</Text>
             <View style={{alignItems: 'center'}}>
               <Stars
-                style={styles.attempt}
                 half={false}
                 default={1}
                 update={(overall_rating) => this.setState({overall_rating})}
@@ -94,11 +93,10 @@ class ReviewsScreen extends Component {
               />
             </View>
           </View>
-          <View style={styles.formItem}>
-            <Text style={styles.formLabel}>price_rating</Text>
+          <View>
+            <Text>price_rating</Text>
             <View style={{alignItems: 'center'}}>
               <Stars
-                style={styles.attempt}
                 half={false}
                 default={1}
                 update={(price_rating) => this.setState({price_rating})}
@@ -108,11 +106,10 @@ class ReviewsScreen extends Component {
               />
             </View>
           </View>
-          <View style={styles.formItem}>
-            <Text style={styles.formLabel}>quality_rating</Text>
+          <View>
+            <Text>quality_rating</Text>
             <View style={{alignItems: 'center'}}>
               <Stars
-                style={styles.attempt}
                 half={false}
                 default={1}
                 update={(quality_rating) => this.setState({quality_rating})}
@@ -122,11 +119,10 @@ class ReviewsScreen extends Component {
               />
             </View>
           </View>
-          <View style={styles.formItem}>
-            <Text style={styles.formLabel}>clenliness_rating</Text>
+          <View>
+            <Text>clenliness_rating</Text>
             <View style={{alignItems: 'center'}}>
               <Stars
-                style={styles.attempt}
                 half={false}
                 default={1}
                 update={(clenliness_rating) =>
@@ -139,7 +135,7 @@ class ReviewsScreen extends Component {
             </View>
           </View>
           <View>
-            <Text style={styles.formLabel}>
+            <Text>
               Review {'\n'}
               {'\n'}
             </Text>
@@ -166,7 +162,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    //alignItems: 'center',
     top: 50,
     paddingHorizontal: 10,
   },
@@ -210,7 +205,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: '75%',
     borderRadius: 10,
-    //top: 40,
     alignItems: 'center',
     marginBottom: 80,
   },
@@ -219,39 +213,3 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-/*
-import React, {Component} from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  SafeAreaView,
-  TouchableOpacity,
-  TextInput,
-  ScrollView,
-} from 'react-native';
-
-class ReviewsScreen extends Component {
-  render() {
-    return (
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <Text style={styles.Title}>Add a review</Text>
-
-        <TouchableOpacity
-          style={styles.Skipbutton}
-          onPress={() => navigation.navigate('Home')}>
-          <Text style={styles.SkipText}> Skip to Homepage</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-}
-export default ReviewsScreen;
-
-const styles = StyleSheet.create({
-  Title: {
-    fontWeight: 'bold',
-    fontSize: 25,
-  },
-});
-*/

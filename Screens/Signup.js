@@ -122,7 +122,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   CreateAcc: {
-    //top: -120,
     fontWeight: 'bold',
     fontSize: 25,
   },
@@ -132,7 +131,6 @@ const styles = StyleSheet.create({
   },
   NameBox: {
     backgroundColor: '#dfdfdf',
-    //height: 35,
     padding: 5,
     alignSelf: 'center',
     width: '75%',
@@ -153,7 +151,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: '75%',
     borderRadius: 10,
-    //top: ,
   },
   PasswordBox: {
     backgroundColor: '#dfdfdf',
@@ -185,7 +182,6 @@ const styles = StyleSheet.create({
   },
   Skipbutton: {
     backgroundColor: '#f08200',
-    //borderwidth : 1,
     height: 35,
     width: '45%',
     borderRadius: 20,
