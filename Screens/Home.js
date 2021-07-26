@@ -3,13 +3,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   StyleSheet,
   View,
-  SafeAreaView,
   Text,
   Image,
-  ScrollView,
   TouchableOpacity,
   FlatList,
-  TouchableHighlight,
 } from 'react-native';
 
 class HomeScreen extends Component {
@@ -25,7 +22,7 @@ class HomeScreen extends Component {
     return fetch('http://10.0.2.2:3333/api/1.0.0/find', {
       method: 'GET',
       headers: {
-        'X-authorization': value,
+        'X-Authorization': value,
       },
     })
       .then((response) => {
@@ -63,142 +60,30 @@ class HomeScreen extends Component {
         data={this.state.Locations}
         renderItem={({item}) => (
           <View>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('Location1', {
-                  location_id: item.location_id,
-                })
-              }>
-              <Image
-                style={{height: 200, width: 200}}
-                source={{uri: item.photo_path}}
-              />
-            </TouchableOpacity>
+            <Text style={styles.Pic1Title}>
+              {' '}
+              {'\n'} {item.location_name}
+            </Text>
+
+            <Text style={styles.Pic1Title}>{item.location_town}</Text>
+
+            <Text style={styles.Pic1Title}>
+              Average Rating: {item.avg_overall_rating}
+            </Text>
             <View>
-              <Text>{item.location_name}</Text>
-
-              <Text>{item.location_town}</Text>
-
-              <Text>{item.avg_overall_rating}</Text>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('Location1', {
+                    location_id: item.location_id,
+                  })
+                }>
+                <Image style={styles.Café1} source={{uri: item.photo_path}} />
+              </TouchableOpacity>
             </View>
           </View>
         )}
         keyExtractor={(item) => item.location_id.toString()}
       />
-
-      /*} <SafeAreaView style={styles.container}>
-        <SafeAreaView style={styles.HorizontalScroll}>
-          <Text style={styles.Pic1Title}>Top-rated Cafés</Text>
-
-
-
-
-
-
-
-
-
-
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          <ScrollView horizontal>
-            <TouchableOpacity onPress={() => navigation.navigate('Location1')}>
-            s  <Text style={{alignSelf: 'center'}}>Best Brews</Text>
-              <Image
-                style={styles.Café1}
-                resizeMode="cover"
-                source={{
-                  uri:
-                    'https://i2-prod.manchestereveningnews.co.uk/business/property/article5908481.ece/ALTERNATES/s615b/MooseCoffeeFinal.jpg',
-                }}
-              />
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => navigation.navigate('Location2')}>
-              <Text style={{alignSelf: 'center'}}>Latte Love</Text>
-              <Image
-                style={styles.Café2}
-                resizeMode="cover"
-                source={{
-                  uri:
-                    'https://www.eclectictrends.com/wp-content/uploads/2020/01/Unmanned-coffee-shop-gacha-gacha-nendo_eclectic-trends-4.jpg',
-                }}
-              />
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => navigation.navigate('Location3')}>
-              <Text style={{alignSelf: 'center'}}>Yomo Café</Text>
-              <Image
-                style={styles.Café3}
-                resizeMode="cover"
-                source={{
-                  uri:
-                    'https://notjessfashion.com/wp-content/uploads/2018/05/la-mercerie-cafe-nyc-900x600.jpg',
-                }}
-              />
-            </TouchableOpacity>
-              </ScrollView>
-        </SafeAreaView>
-
-        <SafeAreaView style={styles.HorizontalScroll}>
-          <Text style={styles.Pic1Title}>New Cafés</Text>
-          <ScrollView horizontal>
-            <TouchableOpacity onPress={() => navigation.navigate('Location2')}>
-              <Text style={{alignSelf: 'center'}}>Latte Love</Text>
-              <Image
-                style={styles.Café2}
-                resizeMode="cover"
-                source={{
-                  uri:
-                    'https://www.eclectictrends.com/wp-content/uploads/2020/01/Unmanned-coffee-shop-gacha-gacha-nendo_eclectic-trends-4.jpg',
-                }}
-              />
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => navigation.navigate('Location1')}>
-              <Text style={{alignSelf: 'center'}}>Best Brews</Text>
-              <Image
-                style={styles.Café1}
-                resizeMode="cover"
-                source={{
-                  uri:
-                    'https://i2-prod.manchestereveningnews.co.uk/business/property/article5908481.ece/ALTERNATES/s615b/MooseCoffeeFinal.jpg',
-                }}
-              />
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => navigation.navigate('Location3')}>
-              <Text style={{alignSelf: 'center'}}>Yomo Café</Text>
-              <Image
-                style={styles.Café3}
-                resizeMode="cover"
-                source={{
-                  uri:
-                    'https://notjessfashion.com/wp-content/uploads/2018/05/la-mercerie-cafe-nyc-900x600.jpg',
-                }}
-              />
-            </TouchableOpacity>
-          </ScrollView>
-        </SafeAreaView>
-      </SafeAreaView>
-              */
     );
   }
 }
@@ -220,21 +105,10 @@ const styles = StyleSheet.create({
     flex: 0.5,
   },
   Café1: {
-    width: 150,
-    height: 150,
+    width: 200,
+    height: 200,
     borderRadius: 15,
     margin: 10,
-  },
-  Café2: {
-    width: 150,
-    height: 150,
-    borderRadius: 15,
-    margin: 10,
-  },
-  Café3: {
-    width: 150,
-    height: 150,
-    borderRadius: 15,
-    margin: 10,
+    alignSelf: 'center',
   },
 });

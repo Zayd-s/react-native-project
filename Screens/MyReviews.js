@@ -7,7 +7,6 @@ import {
   FlatList,
   TouchableOpacity,
   View,
-  Image,
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
@@ -143,8 +142,7 @@ class MyReviews extends Component {
                 <View>
                   {
                     //this link goes to a page called EditReview
-                    // in this page i'm going to make the endpoint functionality of updating reviews.
-                    //
+                    //make the endpoint functionality of updating reviews.
                   }
 
                   <TouchableOpacity

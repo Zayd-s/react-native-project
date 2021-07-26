@@ -4,10 +4,8 @@ import Stars from 'react-native-stars';
 import {
   ToastAndroid,
   Text,
-  FlatList,
   TouchableOpacity,
   View,
-  Image,
   StyleSheet,
   SafeAreaView,
   TextInput,
