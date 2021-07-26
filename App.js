@@ -15,6 +15,7 @@ import Location1Screen from './Screens/Location1';
 import Location2Screen from './Screens/Location2';
 import Location3Screen from './Screens/Location3';
 import EditProfileScreen from './Screens/EditProfile';
+import MyReviewsScreen from './Screens/MyReviews';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -25,9 +26,9 @@ function myTabs() {
     <Tab.Navigator>
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen
-        name="Reviews"
-        component={ReviewsScreen}
-        options={{title: 'Reviews'}}
+        name="My Reviews"
+        component={MyReviewsScreen}
+        options={{title: 'My Reviews'}}
       />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
@@ -76,6 +77,11 @@ class App extends Component {
             name="Location1"
             component={Location1Screen}
             options={{title: 'Best Brews'}}
+          />
+          <Stack.Screen
+            name="MyReviews"
+            component={MyReviewsScreen}
+            options={{title: 'My Reviews'}}
           />
           <Stack.Screen
             name="Location2"
